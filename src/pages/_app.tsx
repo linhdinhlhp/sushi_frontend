@@ -20,25 +20,28 @@ import type { EmotionCache } from '@emotion/cache'
 
 // ** Config Imports
 
-import { defaultACLObj } from 'src/configs/acl'
+import { defaultACLObj } from 'src/configs/userAcl'
 import themeConfig from 'src/configs/themeConfig'
 import 'src/configs/i18n'
+
+// ** Fake-DB Import
+import 'src/@fake-db'
 
 // ** Third Party Import
 import { Toaster } from 'react-hot-toast'
 
 // ** Component Imports
 import UserLayout from 'src/layouts/UserLayout'
-import AclGuard from 'src/@core/components/auth/AclGuard'
+import UserAclGuard from 'src/layouts/components/auth/UserAclGuard'
+import UserAuthGuard from 'src/layouts/components/auth/UserAuthGuard'
+import UserGuestGuard from 'src/layouts/components/auth/UserGuestGuard'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
-import AuthGuard from 'src/@core/components/auth/AuthGuard'
-import GuestGuard from 'src/@core/components/auth/GuestGuard'
+import { SessionProvider } from 'next-auth/react'
 
 // ** Spinner Import
 import Spinner from 'src/@core/components/spinner'
 
 // ** Contexts
-import { AuthProvider } from 'src/context/AuthContext'
 import { ApiProvider } from 'src/context/ApiContext'
 import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
 
@@ -91,11 +94,11 @@ if (themeConfig.routingLoader) {
 
 const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
   if (guestGuard) {
-    return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+    return <UserGuestGuard fallback={<Spinner />}>{children}</UserGuestGuard>
   } else if (!guestGuard && !authGuard) {
     return <>{children}</>
   } else {
-    return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
+    return <UserAuthGuard fallback={<Spinner />}>{children}</UserAuthGuard>
   }
 }
 
@@ -130,16 +133,16 @@ const App = (props: ExtendedAppProps) => {
         </Head>
 
         <ApiProvider>
-          <AuthProvider>
+          <SessionProvider session={pageProps.session}>
             <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
               <SettingsConsumer>
                 {({ settings }) => {
                   return (
                     <ThemeComponent settings={settings}>
                       <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                        <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
+                        <UserAclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
                           {getLayout(<Component {...pageProps} />)}
-                        </AclGuard>
+                        </UserAclGuard>
                       </Guard>
                       <ReactHotToast>
                         <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
@@ -149,7 +152,7 @@ const App = (props: ExtendedAppProps) => {
                 }}
               </SettingsConsumer>
             </SettingsProvider>
-          </AuthProvider>
+          </SessionProvider>
         </ApiProvider>
       </CacheProvider>
     </Provider>

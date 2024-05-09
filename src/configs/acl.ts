@@ -1,5 +1,4 @@
 import { AbilityBuilder, Ability } from '@casl/ability'
-import { CaslPermission } from 'src/__generated__/AccountifyAPI'
 
 export type Subjects = string
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete'
@@ -17,22 +16,22 @@ export type ACLObj = {
  * We have just shown Admin and Client rules for demo purpose where
  * admin can manage everything and client can just visit ACL page
  */
-const defineRulesFor = (permissions: CaslPermission[]) => {
+const defineRulesFor = (role: string, subject: string) => {
   const { can, rules } = new AbilityBuilder(AppAbility)
 
-  if (permissions) {
-    permissions.forEach((permission: CaslPermission) => {
-      can([permission.action], permission.subject)
-    })
+  if (role === 'admin') {
+    can('manage', 'all')
+  } else if (role === 'client') {
+    can(['read'], 'acl-page')
   } else {
-    can(['read'], 'user') // Default role to read essentials pages
+    can(['read', 'create', 'update', 'delete'], subject)
   }
 
   return rules
 }
 
-export const buildAbilityFor = (permissions: CaslPermission[]): AppAbility => {
-  return new AppAbility(defineRulesFor(permissions), {
+export const buildAbilityFor = (role: string, subject: string): AppAbility => {
+  return new AppAbility(defineRulesFor(role, subject), {
     // https://casl.js.org/v5/en/guide/subject-type-detection
     // @ts-ignore
     detectSubjectType: object => object!.type
@@ -40,8 +39,8 @@ export const buildAbilityFor = (permissions: CaslPermission[]): AppAbility => {
 }
 
 export const defaultACLObj: ACLObj = {
-  action: 'read',
-  subject: 'user'
+  action: 'manage',
+  subject: 'all'
 }
 
 export default defineRulesFor

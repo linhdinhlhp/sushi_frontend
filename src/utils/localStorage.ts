@@ -1,18 +1,30 @@
 import { OrganizationProfileResponseDto, ProfileResponseDto } from 'src/__generated__/AccountifyAPI'
-import authConfig from 'src/configs/auth'
 
 export const getAccessToken = (): string => {
-  return window.localStorage.getItem(authConfig.storageTokenKeyName)!
+  return localStorage.getItem('accessToken') || ''
 }
 
-export const getUserData = (): ProfileResponseDto => {
-  return JSON.parse(window.localStorage.getItem('userData')!)
+export const getUserData = (): ProfileResponseDto | null => {
+  const userData = localStorage.getItem('userData')
+
+  if (userData) {
+    return JSON.parse(userData)
+  }
+
+  return null
 }
 
-export const getOrganization = (): OrganizationProfileResponseDto => {
-  return JSON.parse(window.localStorage.getItem('organization')!)
+export const getOrganization = (): OrganizationProfileResponseDto | null => {
+  const organization = localStorage.getItem('organization')
+  if (organization) {
+    return JSON.parse(organization)
+  }
+
+  return null
 }
 
 export const getOrgId = (): number => {
-  return JSON.parse(window.localStorage.getItem('organization')!).id
+  const organization = JSON.parse(localStorage.getItem('organization') || '')
+
+  return organization.id
 }

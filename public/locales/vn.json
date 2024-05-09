@@ -1,7 +1,17 @@
 {
     "navbar": {
+        "dashboards_page": {
+            "dashboards": "Bảng thống kê",
+            "analytics": "Phân tích"
+        },
         "home": "Trang chủ",
         "role_page": "Trang phân quyền",
+        "invoice_page": {
+            "invoice": "Hoá đơn",
+            "list": "Danh sách",
+            "add": "Thêm"
+        },
+        "user_page": "Trang người dùng",
         "account_settings_page": {
             "account_settings": "Cài đặt tài khoản",
             "account": "Tài khoản",
@@ -33,7 +43,7 @@
         "add_role_success": "Thêm vai trò thành công",
         "update_role_success": "Cập nhật vai trò thành công",
         "delete_role_success": "Xoá vai trò thành công",
-        "add_user_success": "Mời người dùng thành công",
+        "add_user_success": "Thêm người dùng thành công",
         "update_user_success": "Cập nhật vai trò người dùng thành công",
         "delete_user_success": "Xóa người dùng khỏi tổ chức này thành công"
     },
@@ -89,13 +99,15 @@
             "select_role": "Chọn vai trò",
             "user": "Người dùng",
             "email": "Email",
+            "phone": "Số điện thoại",
+            "address": "Địa chỉ",
             "role": "Vai trò",
             "actions": "Hành động",
             "cannot_delete_last_admin": "Vì người dùng này là quản trị viên duy nhất, nên tài khoản này không thể bị xóa",
             "edit_user_role_dialog_title": "Chỉnh sửa vai trò người dùng",
             "remove_user_dialog_title": "Xác nhận xóa người dùng",
             "remove_user_dialog_subtitle": "Nếu người dùng này không thuộc tổ chức khác thì tài khoản sẽ bị xóa.",
-            "invite_users": "Mời người dùng",
+            "add_user": "Thêm người dùng",
             "default_role": "Vai trò mặc định",
             "custom_role_optional": "Vai trò tùy chỉnh (Tùy chọn)"
         },
@@ -103,8 +115,107 @@
             "no_roles_selected": "Bạn chưa chọn vai trò nào",
             "admin": "Admin không thể được sử dụng cùng với vai trò khác",
             "no_admin_nor_member": "Member phải được chọn",
+            "last_admin": "đây là quản trị viên cuối cùng",
             "max_of_roles_can_be_selected": "Chỉ được chọn một số lượng vai trò giới hạn"
         }
+    },
+    "invoice_page": {
+        "list": {
+            "filters": "Bộ lọc",
+            "invoice_date": "Ngày tháng",
+            "actions": "Hành động",
+            "search_invoice": "Tìm hoá đơn",
+            "create_invoice": "Tạo hoá đơn",
+            "creator": "Người tạo",
+            "name": "Tên",
+            "note": "Ghi chú",
+            "total": "Tổng cộng",
+            "date": "Thời gian",
+            "amount": "Giá",
+            "type": "Loại",
+            "delete_invoice": "Xoá hoá đơn",
+            "view": "Xem",
+            "download": "Tải xuống",
+            "edit": "Cập nhật",
+            "duplicate": "Sao chép"
+        },
+        "add": {
+            "invoice": "Hoá đơn",
+            "date": "Thời gian",
+            "item": "Tên",
+            "type": "Loại",
+            "quantity": "Số lượng",
+            "currency": "Tiền tệ",
+            "name": "Tên",
+            "note": "Ghi chú",
+            "price": "Giá",
+            "add_item": "Thêm hoá đơn",
+            "create_invoice": "Tạo hoá đơn"
+        },
+        "edit": {
+            "invoice": "Hoá đơn",
+            "date": "Thời gian",
+            "item": "Tên",
+            "type": "Loại",
+            "quantity": "Số lượng",
+            "currency": "Tiền tệ",
+            "name": "Tên",
+            "note": "Ghi chú",
+            "price": "Giá",
+            "add_item": "Thêm hoá đơn",
+            "update_invoice": "Cập nhật hoá đơn",
+            "preview": "Xem trước"
+        },
+        "preview": {
+            "invoice": "Hoá đơn",
+            "date": "Thời gian",
+            "item": "Tên",
+            "type": "Loại",
+            "quantity": "Số lượng",
+            "currency": "Tiền tệ",
+            "name": "Tên",
+            "note": "Ghi chú",
+            "price": "Đơn giá",
+            "send_invoice": "Gửi hoá đơn",
+            "download": "Tải xuống",
+            "print": "In",
+            "total": "Tổng cộng",
+            "update_invoice": "Cập nhật hoá đơn"
+        },
+        "print": {
+            "invoice_to": "Hoá đơn tới",
+            "invoice": "Hoá đơn",
+            "date": "Thời gian",
+            "item": "Tên",
+            "type": "Loại",
+            "quantity": "Số lượng",
+            "currency": "Tiền tệ",
+            "name": "Tên",
+            "note": "Ghi chú",
+            "price": "Đơn giá",
+            "total": "Tổng cộng"
+        }
+    },
+    "autocomplete": {
+        "search": "Tìm kiếm (Ctrl+/)"
+    },
+    "user_page": {
+        "total_users": "Tổng số người dùng",
+        "total_roles": "Tổng số vai trò",
+        "export": "Export",
+        "search_filters": "Bộ lọc tìm kiếm",
+        "search_user": "Tìm người dùng",
+        "select_role": "Chọn vai trò",
+        "user": "Người dùng",
+        "email": "Email",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "role": "Vai trò",
+        "actions": "Hành động",
+        "cannot_delete_last_admin": "Vì người dùng này là quản trị viên duy nhất, nên tài khoản này không thể bị xóa",
+        "add_user": "Thêm người dùng",
+        "default_role": "Vai trò mặc định",
+        "custom_role_optional": "Vai trò tùy chỉnh (Tùy chọn)"
     },
     "account_settings_page": {
         "title": "Cài đặt tài khoản",

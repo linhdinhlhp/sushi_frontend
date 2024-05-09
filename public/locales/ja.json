@@ -1,12 +1,25 @@
 {
     "navbar": {
+        "dashboards_page": {
+            "dashboards": "ダッシュボード",
+            "analytics": "分析"
+        },
         "home": "ホームページ",
         "role_page": "役割ページ",
+        "invoice_page": {
+            "invoice": "インヴォイス",
+            "list": "リスト",
+            "add": "追加"
+        },
+        "user_page": "ユーザーページ",
         "account_settings_page": {
             "account_settings": "アカウント設定",
             "account": "アカウント",
             "security": "セキュリティ"
         }
+    },
+    "autocomplete": {
+        "search": "検索 (Ctrl+/)"
     },
     "user_dropdown": {
         "account_settings": "アカウント設定",
@@ -33,7 +46,7 @@
         "add_role_success": "ロールの追加が成功しました",
         "update_role_success": "ロールの編集が成功しました",
         "delete_role_success": "ロールの削除が成功しました",
-        "add_user_success": "ユーザーの招待が成功しました",
+        "add_user_success": "ユーザーの追加が成功しました",
         "update_user_success": "ユーザーロールの編集が成功しました",
         "delete_user_success": "この組織からのユーザーの削除は成功しました"
     },
@@ -89,13 +102,15 @@
             "select_role": "役割の選択",
             "user": "ユーザー",
             "email": "Eメール",
+            "phone": "電話番号",
+            "address": "住所",
             "role": "ロール",
             "actions": "行動",
             "cannot_delete_last_admin": "このユーザーは唯一の管理者であるため、このアカウントは削除できません",
             "edit_user_role_dialog_title": "ユーザーロールの編集",
             "remove_user_dialog_title": "ユーザー削除の確​​認",
             "remove_user_dialog_subtitle": "このユーザーが他の組織に属していない場合は削除されます。",
-            "invite_users": "ユーザーの招待",
+            "add_user": "ユーザーの追加",
             "default_role": "デフォルトのロール",
             "custom_role_optional": "カスタムロール (オプション)"
         },
@@ -103,8 +118,104 @@
             "no_roles_selected": "ロールが設定されていません",
             "admin": "Adminは他のロールと一緒に使用することはできません",
             "no_admin_nor_member": "Memberを選択する必要があります",
+            "last_admin": "これが最後の管理者です",
             "max_of_roles_can_be_selected": "最大ロール個のみ選択できます"
         }
+    },
+    "invoice_page": {
+        "list": {
+            "filters": "フィルター",
+            "invoice_date": "インヴォイスの日付",
+            "actions": "行動",
+            "search_invoice": "インヴォイスの検索",
+            "create_invoice": "インヴォイスの作成",
+            "creator": "創造者",
+            "name": "名前",
+            "note": "メモ",
+            "total": "合計",
+            "date": "日付",
+            "amount": "価格",
+            "type": "タイプ",
+            "delete_invoice": "インヴォイスの削除",
+            "view": "ビュー",
+            "download": "ダウンロード",
+            "edit": "編集",
+            "duplicate": "重複"
+        },
+        "add": {
+            "invoice": "インヴォイス",
+            "date": "日付",
+            "item": "アイテム",
+            "type": "タイプ",
+            "quantity": "量",
+            "currency": "通貨",
+            "name": "名前",
+            "note": "メモ",
+            "price": "価格",
+            "add_item": "アイテムの追加",
+            "create_invoice": "インヴォイスの作成"
+        },
+        "edit": {
+            "invoice": "インヴォイス",
+            "date": "日付",
+            "item": "アイテム",
+            "type": "タイプ",
+            "quantity": "量",
+            "currency": "通貨",
+            "name": "名前",
+            "note": "メモ",
+            "price": "価格",
+            "add_item": "アイテムの追加",
+            "update_invoice": "インヴォイスの編集",
+            "preview": "プレビュー"
+        },
+        "preview": {
+            "invoice": "インヴォイス",
+            "date": "日付",
+            "item": "アイテム",
+            "type": "タイプ",
+            "quantity": "量",
+            "currency": "通貨",
+            "name": "名前",
+            "note": "メモ",
+            "price": "価格",
+            "send_invoice": "インヴォイスの送信",
+            "download": "ダウンロード",
+            "print": "印刷",
+            "total": "合計",
+            "update_invoice": "インヴォイスの編集"
+        },
+        "print": {
+            "invoice_to": "インヴォイス先",
+            "invoice": "インヴォイス",
+            "date": "日付",
+            "item": "アイテム",
+            "type": "タイプ",
+            "quantity": "量",
+            "currency": "通貨",
+            "name": "名前",
+            "note": "メモ",
+            "price": "価格",
+            "total": "合計"
+        }
+    },
+    "user_page": {
+        "total_users": "ユーザー数",
+        "total_roles": "ロール数",
+        "export": "エクスポート",
+        "search_filters": "フィルターでの検索",
+        "search_user": "ユーザーの検索",
+        "select_role": "役割の選択",
+        "user": "ユーザー",
+        "email": "Eメール",
+        "phone": "電話番号",
+        "address": "住所",
+        "role": "ロール",
+        "actions": "行動",
+        "cannot_delete_last_admin": "このユーザーは唯一の管理者であるため、このアカウントは削除できません",
+        "add_user": "ユーザーの追加",
+        "default_role": "デフォルトのロール",
+        "custom_role_optional": "カスタムロール (オプション)"
     },
     "account_settings_page": {
         "title": "アカウント設定",

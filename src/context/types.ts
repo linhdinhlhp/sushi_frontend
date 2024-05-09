@@ -9,7 +9,7 @@ import {
 
 export type ErrCallbackType = (err: { [key: string]: string }) => void
 
-export type AuthValuesType = {
+export type UserAuthValuesType = {
   loading: boolean
   logout: () => void
   user: ProfileResponseDto | null

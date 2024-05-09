@@ -11,7 +11,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "build:icons": "tsc -b src/iconify-bundle && node src/iconify-bundle/bundle-icons-react.js",
     "new-release": "./scripts/create-release-branch.sh",
-    "api-gen": "node scripts/swagger-gen.js"
+    "api-gen": "node scripts/swagger-gen.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@casl/ability": "6.5.0",
@@ -38,6 +39,7 @@
     "@reduxjs/toolkit": "1.9.5",
     "apexcharts-clevision": "3.28.5",
     "axios": "1.4.0",
+    "axios-mock-adapter": "^1.21.4",
     "bootstrap-icons": "1.10.5",
     "chart.js": "4.3.0",
     "cleave.js": "1.6.0",
@@ -48,9 +50,9 @@
     "i18next": "22.4.15",
     "i18next-browser-languagedetector": "7.0.1",
     "i18next-http-backend": "2.2.0",
-    "jsonwebtoken": "8.5.1",
     "keen-slider": "6.8.5",
     "next": "13.3.2",
+    "next-auth": "^4.24.5",
     "nprogress": "0.2.0",
     "payment": "2.4.6",
     "prismjs": "1.29.0",
@@ -75,6 +77,8 @@
     "yup": "1.1.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
     "@iconify/iconify": "3.1.0",
     "@iconify/json": "2.2.58",
     "@iconify/tools": "2.2.6",
@@ -82,7 +86,6 @@
     "@iconify/utils": "2.1.5",
     "@types/cleave.js": "1.4.7",
     "@types/draft-js": "0.11.10",
-    "@types/jsonwebtoken": "8.5.9",
     "@types/node": "18.16.3",
     "@types/nprogress": "0.2.0",
     "@types/payment": "2.1.4",
@@ -100,6 +103,7 @@
     "eslint-import-resolver-alias": "1.1.2",
     "eslint-import-resolver-typescript": "3.5.3",
     "eslint-plugin-import": "2.27.5",
+    "husky": "^9.0.11",
     "prettier": "2.8.4",
     "typescript": "5.0.4"
   },

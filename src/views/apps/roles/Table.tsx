@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Utils Import
+import { getOrganizationDefaultHomeUrl } from 'src/utils/router/organization'
 import { getInitials } from 'src/@core/utils/get-initials'
 import { getOrgId } from 'src/utils/localStorage'
 import { isAdmin } from 'src/utils/role'
@@ -40,11 +41,13 @@ import { OrganizationProfileResponseDto, OrganizationUserResponseDto } from 'src
 import TableHeader from 'src/views/apps/roles/TableHeader'
 import DialogEditUserRole from './dialogs/DialogEditUserRole'
 import DialogDeleteUser from './dialogs/DialogDeleteUser'
-import InviteUserDrawer from './drawers/InviteUserDrawer'
+import AddUserDrawer from '../user/list/AddUserDrawer'
 
 // ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 import { useTranslation } from 'react-i18next'
+
+// ** Next Auth Imports
+import { useSession } from 'next-auth/react'
 
 // ** Context Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
@@ -55,18 +58,22 @@ interface CellType {
 
 // ** renders client column
 const renderClient = (row: OrganizationUserResponseDto) => {
-  return (
-    <CustomAvatar skin='light' color='primary' sx={{ mr: 3, width: 30, height: 30, fontSize: '.875rem' }}>
-      {getInitials(row.name ? row.name : 'John Doe')}
-    </CustomAvatar>
-  )
+  if (row.avatar) {
+    return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 30, height: 30 }} />
+  } else {
+    return (
+      <CustomAvatar skin='light' color='primary' sx={{ mr: 3, width: 30, height: 30, fontSize: '.875rem' }}>
+        {getInitials(row.name ? row.name : 'John Doe')}
+      </CustomAvatar>
+    )
+  }
 }
 
 const UserList = () => {
   // ** State
   const [showDialogEditUserRole, setShowDialogEditUserRole] = useState<boolean>(false)
   const [showDialogDeleteUser, setShowDialogDeleteUser] = useState<boolean>(false)
-  const [inviteUserOpen, setInviteUserOpen] = useState<boolean>(false)
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [isSelectAdmin, setIsSelectAdmin] = useState(false)
   const [role, setRole] = useState<string>('')
   const [value, setValue] = useState<string>('')
@@ -75,11 +82,11 @@ const UserList = () => {
   const [selectedCheckbox, setSelectedCheckbox] = useState<string[]>([])
 
   // ** Hooks
+  const session = useSession()
   const dispatch = useDispatch<AppDispatch>()
   const userStore = useSelector((state: RootState) => state.user)
   const roleStore = useSelector((state: RootState) => state.role)
   const ability = useContext(AbilityContext)
-  const { user } = useAuth()
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -90,7 +97,7 @@ const UserList = () => {
       })
     )
     dispatch(fetchAdminCount())
-    dispatch(fetchRole())
+    dispatch(fetchRole({ query: '' }))
   }, [dispatch, role, value])
 
   const hasOnlyOneAdmin = (): boolean => {
@@ -141,14 +148,15 @@ const UserList = () => {
       roleIds: selectedCheckbox.map(roleId => parseInt(roleId))
     }
     dispatch(updateUser(data))
-    if (selectedOrganizationUser.id !== user!.id) {
+    if (session.data && selectedOrganizationUser.id !== session.data.user.id) {
       setShowDialogEditUserRole(false)
       setSelectedCheckbox([])
 
       return
     }
-    const organization = user!.organizations.find((org: OrganizationProfileResponseDto) => org.id === orgId)!
-    window.location.assign(`/${organization.uniqueName}/home`)
+    const organization =
+      session.data && session.data.user.organizations.find((org: OrganizationProfileResponseDto) => org.id === orgId)!
+    window.location.assign(getOrganizationDefaultHomeUrl(organization?.uniqueName))
   }
 
   const handleDeleteUser = (userId: number) => {
@@ -158,8 +166,8 @@ const UserList = () => {
     setSelectedOrganizationUser(null)
   }
 
-  const toggleInviteUserDrawer = () => {
-    setInviteUserOpen(!inviteUserOpen)
+  const toggleAddUserDrawer = () => {
+    setAddUserOpen(!addUserOpen)
     setIsSelectAdmin(false)
   }
 
@@ -191,7 +199,7 @@ const UserList = () => {
                 {name}
               </Typography>
               <Typography noWrap variant='caption'>
-                {`@${email}`}
+                {`@${email.split('@')[0]}`}
               </Typography>
             </Box>
           </Box>
@@ -206,7 +214,7 @@ const UserList = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography variant='body2' noWrap>
-            {row.email}
+            {row.email || '-'}
           </Typography>
         )
       }
@@ -229,10 +237,36 @@ const UserList = () => {
           >
             {row.roles.map(role => (
               <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }} key={role.id}>
-                {role.name}
+                {role.name || '-'}
               </Typography>
             ))}
           </Box>
+        )
+      }
+    },
+    {
+      flex: 0.2,
+      minWidth: 250,
+      field: 'phone',
+      headerName: `${t('role_page.user.phone')}`,
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography variant='body2' noWrap>
+            {row.phone || '-'}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.2,
+      minWidth: 250,
+      field: 'address',
+      headerName: `${t('role_page.user.address')}`,
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography variant='body2' noWrap>
+            {row.address || '-'}
+          </Typography>
         )
       }
     },
@@ -285,7 +319,7 @@ const UserList = () => {
             allRoles={roleStore.data}
             handleFilter={handleFilter}
             handleRoleChange={handleRoleChange}
-            toggleInviteUserDrawer={toggleInviteUserDrawer}
+            toggleAddUserDrawer={toggleAddUserDrawer}
           />
           <DataGrid
             autoHeight
@@ -316,9 +350,9 @@ const UserList = () => {
         handleDelete={handleDeleteUser}
         setSelectedOrganizationUser={setSelectedOrganizationUser}
       />
-      <InviteUserDrawer
-        open={inviteUserOpen}
-        toggle={toggleInviteUserDrawer}
+      <AddUserDrawer
+        open={addUserOpen}
+        toggle={toggleAddUserDrawer}
         allRoles={roleStore.data}
         isSelectAdmin={isSelectAdmin}
         setIsSelectAdmin={setIsSelectAdmin}

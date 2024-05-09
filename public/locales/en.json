@@ -1,12 +1,25 @@
 {
     "navbar": {
+        "dashboards_page": {
+            "dashboards": "Dashboards",
+            "analytics": "Analytics"
+        },
         "home": "Home",
         "role_page": "Role Page",
+        "invoice_page": {
+            "invoice": "Invoice",
+            "list": "List",
+            "add": "Add"
+        },
+        "user_page": "User Page",
         "account_settings_page": {
             "account_settings": "Account Settings",
             "account": "Account",
             "security": "Security"
         }
+    },
+    "autocomplete": {
+        "search": "Search (Ctrl+/)"
     },
     "user_dropdown": {
         "account_settings": "Account Settings",
@@ -33,7 +46,7 @@
         "add_role_success": "Add role succeed",
         "update_role_success": "Update role succeed",
         "delete_role_success": "Delete role succeed",
-        "add_user_success": "Invite users succeed",
+        "add_user_success": "Add user succeed",
         "update_user_success": "Update user role succeed",
         "delete_user_success": "Remove user from this organization succeed"
     },
@@ -89,13 +102,15 @@
             "select_role": "Select Role",
             "user": "User",
             "email": "Email",
+            "phone": "Phone",
+            "address": "Address",
             "role": "Role",
             "actions": "Actions",
             "cannot_delete_last_admin": "Since this user is the only admin, this account cannot be deleted",
             "edit_user_role_dialog_title": "Edit User Role",
             "remove_user_dialog_title": "Remove User Confirmation",
             "remove_user_dialog_subtitle": "If this user does not belong to other organizations, it will be deleted.",
-            "invite_users": "Invite Users",
+            "add_user": "Add User",
             "default_role": "Default Role",
             "custom_role_optional": "Custom Role (Optional)"
         },
@@ -103,8 +118,104 @@
             "no_roles_selected": "No roles have been selected",
             "admin": "Admin cannot be used with other roles",
             "no_admin_nor_member": "Member has to be selected",
+            "last_admin": "This is the last admin",
             "max_of_roles_can_be_selected": "Only a maximum of roles can be selected"
         }
+    },
+    "invoice_page": {
+        "list": {
+            "filters": "Filters",
+            "invoice_date": "Invoice Date",
+            "actions": "Actions",
+            "search_invoice": "Search Invoice",
+            "create_invoice": "Create Invoice",
+            "creator": "Creator",
+            "name": "Name"
+            "note": "Note",
+            "total": "Total",
+            "date": "Date",
+            "amount": "Amount",
+            "type": "Type",
+            "delete_invoice": "Delete Invoice",
+            "view": "View",
+            "download": "Download",
+            "edit": "Edit",
+            "duplicate": "Duplicate"
+        },
+        "add": {
+            "invoice": "Invoice",
+            "date": "Date",
+            "item": "Item",
+            "type": "Type",
+            "quantity": "Quantity",
+            "currency": "Currency",
+            "name": "Name",
+            "note": "Note",
+            "price": "Price",
+            "add_item": "Add Item",
+            "create_invoice": "Create Invoice"
+        },
+        "edit": {
+            "invoice": "Invoice",
+            "date": "Date",
+            "item": "Item",
+            "type": "Type",
+            "quantity": "Quantity",
+            "currency": "Currency",
+            "name": "Name",
+            "note": "Note",
+            "price": "Price",
+            "add_item": "Add Item",
+            "update_invoice": "Update Invoice",
+            "preview": "Preview"
+        },
+        "preview": {
+            "invoice": "Invoice",
+            "date": "Date",
+            "item": "Item",
+            "type": "Type",
+            "quantity": "Quantity",
+            "currency": "Currency",
+            "name": "Name",
+            "note": "Note",
+            "price": "Price",
+            "send_invoice": "Send Invoice",
+            "download": "Download",
+            "print": "Print",
+            "total": "Total",
+            "update_invoice": "Update Invoice"
+        },
+        "print": {
+            "invoice_to": "Invoice To",
+            "invoice": "Invoice",
+            "date": "Date",
+            "item": "Item",
+            "type": "Type",
+            "quantity": "Quantity",
+            "currency": "Currency",
+            "name": "Name",
+            "note": "Note",
+            "price": "Price",
+            "total": "Total"
+        }
+    },
+    "user_page": {
+        "total_users": "Total Users",
+        "total_roles": "Total Roles",
+        "export": "Export",
+        "search_filters": "Search Filters",
+        "search_user": "Search User",
+        "select_role": "Select Role",
+        "user": "User",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "role": "Role",
+        "actions": "Actions",
+        "cannot_delete_last_admin": "Since this user is the only admin, this account cannot be deleted",
+        "add_user": "Add User",
+        "default_role": "Default Role",
+        "custom_role_optional": "Custom Role (Optional)"
     },
     "account_settings_page": {
         "title": "Account Settings",

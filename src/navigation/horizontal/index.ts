@@ -9,7 +9,7 @@ const navigation = (): HorizontalNavItemsType => {
 
   return [
     {
-      title: 'navbar.dashboards_page.dashboards',
+      title: 'dashboards',
       icon: 'mdi:home-outline',
       badgeContent: 'new',
       badgeColor: 'error',
@@ -17,7 +17,7 @@ const navigation = (): HorizontalNavItemsType => {
         {
           action: 'read',
           subject: 'dashboard',
-          title: 'navbar.dashboards_page.analytics',
+          title: 'analytics',
           path: `/${uniqueName}/dashboards/analytics`
         }
       ]
@@ -26,23 +26,23 @@ const navigation = (): HorizontalNavItemsType => {
       path: `/${uniqueName}/roles`,
       action: 'read',
       subject: 'role',
-      title: 'navbar.role_page',
+      title: 'role_page',
       icon: 'mdi:shield-outline'
     },
     {
-      title: 'navbar.invoice_page.invoice',
+      title: 'documentary',
       icon: 'mdi:file-document-outline',
       children: [
         {
           action: 'read',
           subject: 'invoice',
-          title: 'navbar.invoice_page.list',
+          title: 'documentary list',
           path: `/${uniqueName}/invoice/list`
         },
         {
           action: 'create',
           subject: 'invoice',
-          title: 'navbar.invoice_page.add',
+          title: 'navbar.documentary_page.add',
           path: `/${uniqueName}/invoice/add`
         }
       ]

@@ -13,6 +13,7 @@ import Box, { BoxProps } from '@mui/material/Box'
 import Grid, { GridProps } from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
 import CardContent, { CardContentProps } from '@mui/material/CardContent'
+import toast from 'react-hot-toast'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -32,6 +33,8 @@ import { CurrencyType, InvoiceType } from 'src/__generated__/AccountifyAPI'
 import Repeater from 'src/@core/components/repeater'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
+import { Router, useRouter } from 'next/router'
+import { getOrgUniqueName } from 'src/utils/organization'
 
 const initialFormData = {
   index: 0,
@@ -45,6 +48,18 @@ const initialFormData = {
 interface PickerProps {
   label?: string
 }
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1
+})
 
 const CustomInput = forwardRef(({ ...props }: PickerProps, ref: ForwardedRef<HTMLElement>) => {
   return <TextField size='small' inputRef={ref} sx={{ width: { sm: '250px', xs: '170px' } }} {...props} />
@@ -94,7 +109,9 @@ export interface AddCardProps {
 
 const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardProps) => {
   // ** States
-  const [count, setCount] = useState<number>(1)
+  // const [count, setCount] = useState<number>(1)
+  const [document, setDocument] = useState<any>()
+  const router = useRouter()
 
   // ** Hook
   const theme = useTheme()
@@ -113,16 +130,26 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
     })
   }
 
-  const addItem = () => {
-    setCount(count + 1)
-    setFormData((prevFormData: any[]) => {
-      const newFormData = [...prevFormData]
+  const handleAddFile = (event: any) => {
+    const file = event.target.files[0]
+    const newFormData = new FormData()
+    newFormData.append('file', file)
+    setDocument(newFormData)
+  }
 
-      const data: any = { ...initialFormData, index: count }
-      newFormData.push(data)
+  const addItem = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/upload/single-file-from-local', {
+        method: 'POST',
+        body: document
+      })
+      const result = await response.json()
+      console.log('Success:', result)
+    } catch (error) {
+      console.error('Error:', error)
+    }
 
-      return newFormData
-    })
+    router.replace(`/${getOrgUniqueName()}/invoice/list/`)
   }
 
   // ** Deletes form
@@ -224,7 +251,7 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
                   {/* {t('invoice_page.add.date')}: */}
-                  Ngày tạo :
+                  Tên biểu mẫu :
                 </Typography>
                 {/* <DatePicker
                   id='issue-date'
@@ -241,6 +268,13 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
                   id='text'
                   required
                 /> */}
+                <TextField size='small' type='text' placeholder='Input data' />
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
+                  {/* {t('invoice_page.add.date')}: */}
+                  Tên phiên bản :
+                </Typography>
                 <TextField size='small' type='text' placeholder='Input data' />
               </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
@@ -266,129 +300,28 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
                   <MenuItem value={CurrencyType.USD}>pptx</MenuItem>
                 </Select>
               </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
+                  {/* {t('invoice_page.add.currency')}: */}
+                  Chon file:
+                </Typography>
+                <TextField type='file' onChange={handleAddFile} inputProps={{ accept: '.docx,.pptx,.xlsx' }} />
+              </Box>
             </Box>
           </Grid>
         </Grid>
+        <Button
+          component='label'
+          size='small'
+          variant='contained'
+          startIcon={<Icon icon='mdi:plus' fontSize={20} />}
+          onClick={() => addItem()}
+        >
+          Add Document
+        </Button>
       </CardContent>
 
       <Divider />
-
-      <RepeaterWrapper>
-        <Repeater count={count}>
-          {(i: number) => {
-            const Tag = i === 0 ? Box : Collapse
-
-            return (
-              <Tag key={i} className='repeater-wrapper' {...(i !== 0 ? { in: true } : {})}>
-                <Grid container>
-                  <RepeatingContent item xs={12}>
-                    <Grid container sx={{ py: 4, width: '100%', pr: { lg: 0, xs: 4 } }}>
-                      <Grid item lg={4} md={4} xs={12} sx={{ px: 4, my: { lg: 0, xs: 4 } }}>
-                        <Typography
-                          variant='body2'
-                          className='col-title'
-                          sx={{ fontWeight: '600', mb: { md: 2, xs: 0 } }}
-                        >
-                          {/* {t('invoice_page.add.item')} */}
-                          Document Name
-                        </Typography>
-                        <TextField
-                          rows={1}
-                          fullWidth
-                          placeholder={t('invoice_page.add.name') as string}
-                          size='small'
-                          onChange={e => handleChangeForm(i, 'name', e.target.value)}
-                        />
-                        <TextField
-                          rows={2}
-                          fullWidth
-                          multiline
-                          placeholder={t('invoice_page.add.note') as string}
-                          size='small'
-                          sx={{ mt: 3.5 }}
-                          onChange={e => handleChangeForm(i, 'note', e.target.value)}
-                        />
-                      </Grid>
-                      <Grid item lg={3} md={3} xs={12} sx={{ px: 4, my: { lg: 0, xs: 4 } }}>
-                        <Typography
-                          variant='body2'
-                          className='col-title'
-                          sx={{ fontWeight: '600', mb: { md: 2, xs: 0 } }}
-                        >
-                          {t('invoice_page.add.type')}
-                        </Typography>
-                        <Select
-                          fullWidth
-                          size='small'
-                          defaultValue={InvoiceType.EXPENSE}
-                          onChange={e => handleChangeForm(i, 'type', e.target.value)}
-                        >
-                          <MenuItem value={InvoiceType.EXPENSE}>docx</MenuItem>
-                          <MenuItem value={InvoiceType.INCOME}>xlsx</MenuItem>
-                        </Select>
-                      </Grid>
-                      <Grid item lg={3} md={3} xs={12} sx={{ px: 4, my: { lg: 0 }, mt: 2 }}>
-                        <Typography
-                          variant='body2'
-                          className='col-title'
-                          sx={{ fontWeight: '600', mb: { md: 2, xs: 0 } }}
-                        >
-                          {/* {t('invoice_page.add.price')}  */}
-                          View numbers
-                        </Typography>
-                        <TextField
-                          fullWidth
-                          size='small'
-                          type='number'
-                          placeholder='1000'
-                          InputProps={{ inputProps: { min: 0 } }}
-                          onChange={e => handleChangeForm(i, 'price', e.target.value)}
-                        />
-                      </Grid>
-                      <Grid item lg={2} md={2} xs={12} sx={{ px: 4, my: { lg: 0 }, mt: 2 }}>
-                        <Typography
-                          variant='body2'
-                          className='col-title'
-                          sx={{ fontWeight: '600', mb: { md: 2, xs: 0 } }}
-                        >
-                          {t('invoice_page.add.quantity')}
-                        </Typography>
-                        <TextField
-                          fullWidth
-                          size='small'
-                          type='number'
-                          placeholder='10'
-                          InputProps={{ inputProps: { min: 0 } }}
-                          onChange={e => handleChangeForm(i, 'quantity', e.target.value)}
-                        />
-                      </Grid>
-                    </Grid>
-                    <InvoiceAction>
-                      <IconButton size='small' onClick={(e: SyntheticEvent) => deleteForm(e, i)}>
-                        <Icon icon='mdi:close' fontSize={20} />
-                      </IconButton>
-                    </InvoiceAction>
-                  </RepeatingContent>
-                </Grid>
-              </Tag>
-            )
-          }}
-        </Repeater>
-
-        <Grid container sx={{ mt: 4 }}>
-          <Grid item xs={12} sx={{ px: 0 }}>
-            <Button
-              size='small'
-              variant='contained'
-              startIcon={<Icon icon='mdi:plus' fontSize={20} />}
-              onClick={() => addItem()}
-            >
-              {/* {t('invoice_page.add.add_item')} */}
-              Add Document
-            </Button>
-          </Grid>
-        </Grid>
-      </RepeaterWrapper>
     </Card>
   )
 }

@@ -257,6 +257,29 @@ export interface UpdateRoleRequestDto {
   permissionConfigs: PermissionConfigDto[]
 }
 
+export interface DocumentResponseDto {
+  /** @example 1 */
+  id: number
+  /** @example "ABC123" */
+  document_id: string
+  /** @example "abcxyz.txt" */
+  document_name: string
+  /** @example "abcxyz.txt" */
+  created_by: string
+  /** @example 1 */
+  organizationId: number
+  /**
+   * @format date-time
+   * @example "2024-02-26T07:31:35.000Z"
+   */
+  createdAt: string
+}
+
+export interface DocumentResponseListDto {
+  documents: DocumentResponseDto[]
+  metadata: MetaData
+}
+
 export enum CurrencyType {
   VND = 'vnd',
   USD = 'usd'
@@ -945,6 +968,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Get document list for organization
+     *
+     * @tags Organization Document
+     * @name GetDocumentListForOrganization
+     * @summary Get document list for organization
+     * @request GET:/internal/api/v1/organizations/{organizationId}/documents
+     * @secure
+     */
+    getDocumentListForOrganization: (organizationId: number, params: RequestParams = {}) =>
+      this.request<DocumentResponseListDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/documents`,
+        method: 'GET',
+        secure: true,
+        format: 'json',
+        ...params
+      }),
+
+    /**
      * @description Create invoices for an organization
      *
      * @tags Organization Invoice
@@ -1056,6 +1097,88 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: 'DELETE',
         secure: true,
         format: 'json',
+        ...params
+      })
+  }
+  email = {
+    /**
+     * No description
+     *
+     * @name EmailControllerSendEmail
+     * @request POST:/email/send-email
+     */
+    emailControllerSendEmail: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/email/send-email`,
+        method: 'POST',
+        ...params
+      })
+  }
+  sms = {
+    /**
+     * No description
+     *
+     * @name SendSmsControllerSendSms
+     * @request POST:/sms/send-sms
+     */
+    sendSmsControllerSendSms: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/sms/send-sms`,
+        method: 'POST',
+        ...params
+      })
+  }
+  file = {
+    /**
+     * No description
+     *
+     * @name FileControllerGetFile
+     * @request GET:/file/download
+     */
+    fileControllerGetFile: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/file/download`,
+        method: 'GET',
+        ...params
+      }),
+
+    /**
+     * No description
+     *
+     * @name FileControllerUploadFile
+     * @request POST:/file/upload-file
+     */
+    fileControllerUploadFile: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/file/upload-file`,
+        method: 'POST',
+        ...params
+      })
+  }
+  upload = {
+    /**
+     * No description
+     *
+     * @name UploadControllerUploadSingleImageFromLocal
+     * @request POST:/upload/single-file-from-local
+     */
+    uploadControllerUploadSingleImageFromLocal: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/upload/single-file-from-local`,
+        method: 'POST',
+        ...params
+      }),
+
+    /**
+     * No description
+     *
+     * @name UploadControllerUploadImageFromLocalFiles
+     * @request POST:/upload/image-from-local-files
+     */
+    uploadControllerUploadImageFromLocalFiles: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/upload/image-from-local-files`,
+        method: 'POST',
         ...params
       })
   }

@@ -9,7 +9,7 @@ const navigation = (): VerticalNavItemsType => {
 
   return [
     {
-      title: 'navbar.dashboards_page.dashboards',
+      title: 'dashboards',
       icon: 'mdi:home-outline',
       badgeContent: 'new',
       badgeColor: 'error',
@@ -26,23 +26,23 @@ const navigation = (): VerticalNavItemsType => {
       path: `/${uniqueName}/roles`,
       action: 'read',
       subject: 'role',
-      title: 'navbar.role_page',
+      title: 'role_page.role.title',
       icon: 'mdi:shield-outline'
     },
     {
-      title: 'navbar.invoice_page.invoice',
+      title: 'documentary_page.documentary',
       icon: 'mdi:file-document-outline',
       children: [
         {
           action: 'read',
           subject: 'invoice',
-          title: 'navbar.invoice_page.list',
+          title: 'documentary list',
           path: `/${uniqueName}/invoice/list`
         },
         {
           action: 'create',
           subject: 'invoice',
-          title: 'navbar.invoice_page.add',
+          title: 'add documentary',
           path: `/${uniqueName}/invoice/add`
         }
       ]

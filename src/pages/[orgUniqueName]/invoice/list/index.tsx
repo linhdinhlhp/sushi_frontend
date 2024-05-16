@@ -46,10 +46,11 @@ import TableHeader from 'src/views/apps/invoice/list/TableHeader'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-import { InvoiceResponseDto, OrganizationUserResponseDto } from 'src/__generated__/AccountifyAPI'
+import { DocumentResponseDto, InvoiceResponseDto, OrganizationUserResponseDto } from 'src/__generated__/AccountifyAPI'
 
 // ** Context Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
+import { fetchDocuments } from 'src/store/apps/document'
 
 interface CustomInputProps {
   dates: Date[]
@@ -60,7 +61,7 @@ interface CustomInputProps {
 }
 
 interface CellType {
-  row: InvoiceResponseDto
+  row: DocumentResponseDto
 }
 
 // ** Styled component for the link in the dataTable
@@ -111,18 +112,12 @@ const InvoiceList = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.invoice)
+  const store = useSelector((state: RootState) => state.document)
   const ability = useContext(AbilityContext)
   const { t } = useTranslation()
 
   useEffect(() => {
-    dispatch(
-      fetchInvoice({
-        fromDate: dates[0]?.toString(),
-        toDate: dates[1]?.toString(),
-        query: value
-      })
-    )
+    dispatch(fetchDocuments())
   }, [dispatch, value, dates])
 
   const handleFilter = (val: string) => {
@@ -138,28 +133,27 @@ const InvoiceList = () => {
     setEndDateRange(end)
   }
 
+  console.log(store.data)
+
   const defaultColumns: GridColDef[] = [
     {
       flex: 0.1,
       field: 'id',
       minWidth: 50,
-      headerName: '#',
-      renderCell: ({ row }: CellType) => <LinkStyled href={getInvoicePreviewUrl(row.id)}>{`#${row.id}`}</LinkStyled>
+      headerName: 'id',
+      renderCell: ({ row }: CellType) => <LinkStyled href={getInvoicePreviewUrl(row.id)}>{row.id}</LinkStyled>
     },
     {
       flex: 0.2,
-      field: 'creator',
+      field: 'organizationId',
       minWidth: 150,
       headerName: t('invoice_page.list.creator') as string,
       renderCell: ({ row }: CellType) => {
-        const { creator } = row
-
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {renderClient(creator)}
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Typography noWrap variant='body2' sx={{ color: 'text.primary', fontWeight: 600 }}>
-                {creator.name}
+                {row.organizationId}
               </Typography>
             </Box>
           </Box>
@@ -169,20 +163,16 @@ const InvoiceList = () => {
     {
       flex: 0.1,
       minWidth: 90,
-      field: 'total',
+      field: 'document_id',
       headerName: t('invoice_page.list.total') as string,
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2'>{formatInvoiceCurrency(row.total || 0, row.currency)}</Typography>
-      )
+      renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.document_id}</Typography>
     },
     {
       flex: 0.2,
       minWidth: 125,
-      field: 'date',
+      field: 'document_name',
       headerName: t('invoice_page.list.date') as string,
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2'>{format(new Date(row.date), 'dd MMM yyyy')}</Typography>
-      )
+      renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.document_name}</Typography>
     }
   ]
 
@@ -242,7 +232,7 @@ const InvoiceList = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <CardHeader title={t('invoice_page.list.filters')} />
+            <CardHeader title={t('create documentary')} />
             <CardContent>
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={6}>
@@ -260,7 +250,7 @@ const InvoiceList = () => {
                       <CustomInput
                         dates={dates}
                         setDates={setDates}
-                        label={t('invoice_page.list.invoice_date')}
+                        label={t('filter date')}
                         end={endDateRange as number | Date}
                         start={startDateRange as number | Date}
                       />

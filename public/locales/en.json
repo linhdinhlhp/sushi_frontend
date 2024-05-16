@@ -122,6 +122,9 @@
             "max_of_roles_can_be_selected": "Only a maximum of roles can be selected"
         }
     },
+    "documentary_page": {
+      "documentary": "Documentary"
+    },
     "invoice_page": {
         "list": {
             "filters": "Filters",
@@ -130,7 +133,7 @@
             "search_invoice": "Search Invoice",
             "create_invoice": "Create Invoice",
             "creator": "Creator",
-            "name": "Name"
+            "name": "Name",
             "note": "Note",
             "total": "Total",
             "date": "Date",

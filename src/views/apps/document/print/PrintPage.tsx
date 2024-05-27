@@ -161,11 +161,11 @@ const InvoicePrint = ({ id }: InvoicePrintProps) => {
           <Grid item xs={4}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { sm: 'flex-end', xs: 'flex-start' } }}>
               <Typography variant='h6' sx={{ mb: 2 }}>
-                {`${t('invoice_page.print.invoice')} #${invoice.id}`}
+                {`${t('document_page.print.invoice')} #${invoice.id}`}
               </Typography>
               <Box sx={{ display: 'flex' }}>
                 <Typography variant='body2' sx={{ mr: 3 }}>
-                  {t('invoice_page.print.date')}:
+                  {t('document_page.print.date')}:
                 </Typography>
                 <Typography variant='body2' sx={{ fontWeight: 600 }}>
                   {format(new Date(invoice?.date ? new Date(invoice.date) : new Date()), 'dd MMM yyyy')}
@@ -180,10 +180,10 @@ const InvoicePrint = ({ id }: InvoicePrintProps) => {
         <Grid container>
           <Grid item xs={7} md={8} sx={{ mb: { lg: 0, xs: 4 } }}>
             <Typography variant='body2' sx={{ mb: 3.5, fontWeight: 600 }}>
-              {t('invoice_page.print.invoice_to')}:
+              {t('document_page.print.invoice_to')}:
             </Typography>
             <Typography variant='body2' sx={{ mb: 2 }}>
-              {t('invoice_page.print.invoice')} #{invoice.id}
+              {t('document_page.print.invoice')} #{invoice.id}
             </Typography>
           </Grid>
         </Grid>
@@ -193,12 +193,12 @@ const InvoicePrint = ({ id }: InvoicePrintProps) => {
         <Table sx={{ mb: 6 }}>
           <TableHead>
             <TableRow>
-              <TableCell>{t('invoice_page.print.item')}</TableCell>
-              <TableCell>{t('invoice_page.print.note')}</TableCell>
-              <TableCell>{t('invoice_page.print.type')}</TableCell>
-              <TableCell>{t('invoice_page.print.price')}</TableCell>
-              <TableCell>{t('invoice_page.print.quantity')}</TableCell>
-              <TableCell>{t('invoice_page.print.total')}</TableCell>
+              <TableCell>{t('document_page.print.item')}</TableCell>
+              <TableCell>{t('document_page.print.note')}</TableCell>
+              <TableCell>{t('document_page.print.type')}</TableCell>
+              <TableCell>{t('document_page.print.price')}</TableCell>
+              <TableCell>{t('document_page.print.quantity')}</TableCell>
+              <TableCell>{t('document_page.print.total')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -257,8 +257,8 @@ const InvoicePrint = ({ id }: InvoicePrintProps) => {
 
         <Divider sx={{ my: `${theme.spacing(6)} !important` }} />
         <Typography variant='body2'>
-          <strong>{t('invoice_page.print.note')}:</strong> It was a pleasure working with you and your team. We hope you
-          will keep us in mind for future freelance projects. Thank You!
+          <strong>{t('document_page.print.note')}:</strong> It was a pleasure working with you and your team. We hope
+          you will keep us in mind for future freelance projects. Thank You!
         </Typography>
       </Box>
     )

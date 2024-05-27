@@ -1,251 +1,251 @@
 {
-    "navbar": {
-        "dashboards_page": {
-            "dashboards": "Bảng thống kê",
-            "analytics": "Phân tích"
-        },
-        "home": "Trang chủ",
-        "role_page": "Trang phân quyền",
-        "invoice_page": {
-            "invoice": "Hoá đơn",
-            "list": "Danh sách",
-            "add": "Thêm"
-        },
-        "user_page": "Trang người dùng",
-        "account_settings_page": {
-            "account_settings": "Cài đặt tài khoản",
-            "account": "Tài khoản",
-            "security": "Bảo mật"
-        }
+  "navbar": {
+    "dashboards_page": {
+      "dashboards": "Bảng thống kê",
+      "analytics": "Phân tích"
     },
-    "user_dropdown": {
-        "account_settings": "Cài đặt tài khoản",
-        "organization": "Chọn tổ chức",
-        "chat": "Nhắn tin",
-        "settings": "Cài đặt",
-        "pricing": "Chiến lược giá",
-        "faq": "Câu hỏi hay gặp",
-        "logout": "Đăng xuất"
+    "home": "Trang chủ",
+    "role_page": "Trang phân quyền",
+    "document_page": {
+      "document": "Biểu mẫu",
+      "list": "Danh sách",
+      "add": "Thêm"
     },
-    "button": {
-        "submit": "Gửi",
-        "edit": "Sửa",
-        "delete": "Xoá",
-        "cancel": "Hủy bỏ",
-        "save_changes": "Lưu thay đổi",
-        "reset": "Cài đặt lại",
-        "yes": "Đúng",
-        "ok": "OK"
-    },
-    "toast_message": {
-        "login_success": "Đăng nhập thành công",
-        "register_success": "Đăng ký thành công",
-        "add_role_success": "Thêm vai trò thành công",
-        "update_role_success": "Cập nhật vai trò thành công",
-        "delete_role_success": "Xoá vai trò thành công",
-        "add_user_success": "Thêm người dùng thành công",
-        "update_user_success": "Cập nhật vai trò người dùng thành công",
-        "delete_user_success": "Xóa người dùng khỏi tổ chức này thành công"
-    },
-    "new": {
-        "create_organization": "Tạo tổ chức",
-        "organization_name": "Tên tổ chức",
-        "enter_new_organization_name": "Vui lòng nhập tên tổ chức",
-        "organization_url": "URL của tổ chức",
-        "enter_new_organization_unique_url": "Vui lòng nhập URL của tổ chức",
-        "create": "Tạo"
-    },
-    "home": {
-        "choose_an_organization": "Chọn tổ chức",
-        "open": "Chọn",
-        "create_organization_header": "Tạo tổ chức 🚀",
-        "create_organization_description": "Khởi tạo dự án của bạn",
-        "create": "Tạo"
-    },
-    "role_page": {
-        "role": {
-            "title": "Danh sách vai trò",
-            "subtitle_1": "Một vai trò cung cấp khả năng truy cập vào các menu và tính năng được xác định trước để tùy thuộc vào vai trò được giao, quản trị viên có thể có quyền truy cập vào những gì mình cần",
-            "subtitle_2": "Một tổ chức có thể có tối đa {{MAX_ROLES_PER_ORGANIZATION}} vai trò",
-            "total_users": "Có {{totalUsers}} người dùng",
-            "add": "Tạo",
-            "edit": "Sửa",
-            "show": "Xem",
-            "role": "vai trò",
-            "add_role": "Tạo vai trò",
-            "edit_role": "Sửa vai trò",
-            "show_role": "Xem vai trò",
-            "add_role_if_not_exists": "Tạo vai trò, nếu chưa tồn tại",
-            "set_role_permissions": "Cài đặt quyền hạn của vai trò",
-            "role_name": "Tên vai trò",
-            "enter_role_name": "Nhập tên vai trò",
-            "role_permissions": "Quyền hạn của vai trò",
-            "administrator_access": "Quyền quản trị",
-            "allow_full_access": "Cho phép truy cập toàn bộ hệ thống",
-            "select_all": "Chọn toàn bộ",
-            "create": "Thêm",
-            "read": "Đọc",
-            "update": "Sửa",
-            "delete": "Xoá",
-            "should_not_edit": "Đây là vai trò mặc định, bạn không nên chỉnh sửa nó",
-            "delete_role_dialog_title": "Xác nhận xoá vai trò",
-            "delete_role_dialog_subtitle": "Xóa vai trò này sẽ hủy chỉ định vai trò đó khỏi mọi người dùng."
-        },
-        "user": {
-            "title": "Danh sách người dùng với vai trò của họ",
-            "subtitle": "Tìm tất cả tài khoản quản trị viên của công ty bạn và vai trò tương ứng của họ.",
-            "export": "Export",
-            "search_user": "Tìm người dùng",
-            "select_role": "Chọn vai trò",
-            "user": "Người dùng",
-            "email": "Email",
-            "phone": "Số điện thoại",
-            "address": "Địa chỉ",
-            "role": "Vai trò",
-            "actions": "Hành động",
-            "cannot_delete_last_admin": "Vì người dùng này là quản trị viên duy nhất, nên tài khoản này không thể bị xóa",
-            "edit_user_role_dialog_title": "Chỉnh sửa vai trò người dùng",
-            "remove_user_dialog_title": "Xác nhận xóa người dùng",
-            "remove_user_dialog_subtitle": "Nếu người dùng này không thuộc tổ chức khác thì tài khoản sẽ bị xóa.",
-            "add_user": "Thêm người dùng",
-            "default_role": "Vai trò mặc định",
-            "custom_role_optional": "Vai trò tùy chỉnh (Tùy chọn)"
-        },
-        "role_errors": {
-            "no_roles_selected": "Bạn chưa chọn vai trò nào",
-            "admin": "Admin không thể được sử dụng cùng với vai trò khác",
-            "no_admin_nor_member": "Member phải được chọn",
-            "last_admin": "đây là quản trị viên cuối cùng",
-            "max_of_roles_can_be_selected": "Chỉ được chọn một số lượng vai trò giới hạn"
-        }
-    },
-    "invoice_page": {
-        "list": {
-            "filters": "Bộ lọc",
-            "invoice_date": "Ngày tháng",
-            "actions": "Hành động",
-            "search_invoice": "Tìm hoá đơn",
-            "create_invoice": "Tạo hoá đơn",
-            "creator": "Người tạo",
-            "name": "Tên",
-            "note": "Ghi chú",
-            "total": "Tổng cộng",
-            "date": "Thời gian",
-            "amount": "Giá",
-            "type": "Loại",
-            "delete_invoice": "Xoá hoá đơn",
-            "view": "Xem",
-            "download": "Tải xuống",
-            "edit": "Cập nhật",
-            "duplicate": "Sao chép"
-        },
-        "add": {
-            "invoice": "Hoá đơn",
-            "date": "Thời gian",
-            "item": "Tên",
-            "type": "Loại",
-            "quantity": "Số lượng",
-            "currency": "Tiền tệ",
-            "name": "Tên",
-            "note": "Ghi chú",
-            "price": "Giá",
-            "add_item": "Thêm hoá đơn",
-            "create_invoice": "Tạo hoá đơn"
-        },
-        "edit": {
-            "invoice": "Hoá đơn",
-            "date": "Thời gian",
-            "item": "Tên",
-            "type": "Loại",
-            "quantity": "Số lượng",
-            "currency": "Tiền tệ",
-            "name": "Tên",
-            "note": "Ghi chú",
-            "price": "Giá",
-            "add_item": "Thêm hoá đơn",
-            "update_invoice": "Cập nhật hoá đơn",
-            "preview": "Xem trước"
-        },
-        "preview": {
-            "invoice": "Hoá đơn",
-            "date": "Thời gian",
-            "item": "Tên",
-            "type": "Loại",
-            "quantity": "Số lượng",
-            "currency": "Tiền tệ",
-            "name": "Tên",
-            "note": "Ghi chú",
-            "price": "Đơn giá",
-            "send_invoice": "Gửi hoá đơn",
-            "download": "Tải xuống",
-            "print": "In",
-            "total": "Tổng cộng",
-            "update_invoice": "Cập nhật hoá đơn"
-        },
-        "print": {
-            "invoice_to": "Hoá đơn tới",
-            "invoice": "Hoá đơn",
-            "date": "Thời gian",
-            "item": "Tên",
-            "type": "Loại",
-            "quantity": "Số lượng",
-            "currency": "Tiền tệ",
-            "name": "Tên",
-            "note": "Ghi chú",
-            "price": "Đơn giá",
-            "total": "Tổng cộng"
-        }
-    },
-    "autocomplete": {
-        "search": "Tìm kiếm (Ctrl+/)"
-    },
-    "user_page": {
-        "total_users": "Tổng số người dùng",
-        "total_roles": "Tổng số vai trò",
-        "export": "Export",
-        "search_filters": "Bộ lọc tìm kiếm",
-        "search_user": "Tìm người dùng",
-        "select_role": "Chọn vai trò",
-        "user": "Người dùng",
-        "email": "Email",
-        "phone": "Số điện thoại",
-        "address": "Địa chỉ",
-        "role": "Vai trò",
-        "actions": "Hành động",
-        "cannot_delete_last_admin": "Vì người dùng này là quản trị viên duy nhất, nên tài khoản này không thể bị xóa",
-        "add_user": "Thêm người dùng",
-        "default_role": "Vai trò mặc định",
-        "custom_role_optional": "Vai trò tùy chỉnh (Tùy chọn)"
-    },
+    "user_page": "Trang người dùng",
     "account_settings_page": {
-        "title": "Cài đặt tài khoản",
-        "account": {
-            "title": "Tài khoản",
-            "full_name": "Họ và tên",
-            "email": "Email",
-            "phone_number": "Số điện thoại",
-            "address": "Địa chỉ",
-            "delete_account": "Xóa tài khoản",
-            "deactivate_account": "Vô hiệu hóa tài khoản",
-            "account_deactivation_checkbox": "Xác nhận vô hiệu hóa tài khoản",
-            "account_deactivation_warning": "Vui lòng xác nhận rằng bạn muốn xóa tài khoản của mình",
-            "account_deactivation_confirm": "Bạn có chắc chắn muốn hủy đăng ký của mình không?",
-            "account_deactivation_success": "Đăng ký đã được hủy thành công.",
-            "account_deactivation_fail": "Đăng ký của bạn đã bị hủy!!",
-            "deleted": "Đã bị xóa",
-            "cancelled": "Đã bị hủy"
-        },
-        "security": {
-            "title": "Bảo mật",
-            "change_password": "Đổi mật khẩu",
-            "new_password": "Mật khẩu mới",
-            "new_password_error": "Phải có 8 ký tự, bao gồm 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 ký tự đặc biệt",
-            "confirm_new_password": "Xác nhận mật khẩu mới",
-            "confirm_new_password_error": "Mật khẩu phải trùng khớp",
-            "password_requirements": "Yêu cầu về mật khẩu",
-            "password_requirements_1": "Có tối thiểu 8 ký tự - càng nhiều ký tự càng an toàn",
-            "password_requirements_2": "Có ít nhất một chữ cái viết thường và một chữ cái viết hoa",
-            "password_requirements_3": "Có ít nhất một chữ số, ký hiệu hoặc ký tự khoảng trắng"
-        }
+      "account_settings": "Cài đặt tài khoản",
+      "account": "Tài khoản",
+      "security": "Bảo mật"
     }
+  },
+  "user_dropdown": {
+    "account_settings": "Cài đặt tài khoản",
+    "organization": "Chọn tổ chức",
+    "chat": "Nhắn tin",
+    "settings": "Cài đặt",
+    "pricing": "Chiến lược giá",
+    "faq": "Câu hỏi hay gặp",
+    "logout": "Đăng xuất"
+  },
+  "button": {
+    "submit": "Gửi",
+    "edit": "Sửa",
+    "delete": "Xoá",
+    "cancel": "Hủy bỏ",
+    "save_changes": "Lưu thay đổi",
+    "reset": "Cài đặt lại",
+    "yes": "Đúng",
+    "ok": "OK"
+  },
+  "toast_message": {
+    "login_success": "Đăng nhập thành công",
+    "register_success": "Đăng ký thành công",
+    "add_role_success": "Thêm vai trò thành công",
+    "update_role_success": "Cập nhật vai trò thành công",
+    "delete_role_success": "Xoá vai trò thành công",
+    "add_user_success": "Thêm người dùng thành công",
+    "update_user_success": "Cập nhật vai trò người dùng thành công",
+    "delete_user_success": "Xóa người dùng khỏi tổ chức này thành công"
+  },
+  "new": {
+    "create_organization": "Tạo tổ chức",
+    "organization_name": "Tên tổ chức",
+    "enter_new_organization_name": "Vui lòng nhập tên tổ chức",
+    "organization_url": "URL của tổ chức",
+    "enter_new_organization_unique_url": "Vui lòng nhập URL của tổ chức",
+    "create": "Tạo"
+  },
+  "home": {
+    "choose_an_organization": "Chọn tổ chức",
+    "open": "Chọn",
+    "create_organization_header": "Tạo tổ chức 🚀",
+    "create_organization_description": "Khởi tạo dự án của bạn",
+    "create": "Tạo"
+  },
+  "role_page": {
+    "role": {
+      "title": "Danh sách vai trò",
+      "subtitle_1": "Một vai trò cung cấp khả năng truy cập vào các menu và tính năng được xác định trước để tùy thuộc vào vai trò được giao, quản trị viên có thể có quyền truy cập vào những gì mình cần",
+      "subtitle_2": "Một tổ chức có thể có tối đa {{MAX_ROLES_PER_ORGANIZATION}} vai trò",
+      "total_users": "Có {{totalUsers}} người dùng",
+      "add": "Tạo",
+      "edit": "Sửa",
+      "show": "Xem",
+      "role": "vai trò",
+      "add_role": "Tạo vai trò",
+      "edit_role": "Sửa vai trò",
+      "show_role": "Xem vai trò",
+      "add_role_if_not_exists": "Tạo vai trò, nếu chưa tồn tại",
+      "set_role_permissions": "Cài đặt quyền hạn của vai trò",
+      "role_name": "Tên vai trò",
+      "enter_role_name": "Nhập tên vai trò",
+      "role_permissions": "Quyền hạn của vai trò",
+      "administrator_access": "Quyền quản trị",
+      "allow_full_access": "Cho phép truy cập toàn bộ hệ thống",
+      "select_all": "Chọn toàn bộ",
+      "create": "Thêm",
+      "read": "Đọc",
+      "update": "Sửa",
+      "delete": "Xoá",
+      "should_not_edit": "Đây là vai trò mặc định, bạn không nên chỉnh sửa nó",
+      "delete_role_dialog_title": "Xác nhận xoá vai trò",
+      "delete_role_dialog_subtitle": "Xóa vai trò này sẽ hủy chỉ định vai trò đó khỏi mọi người dùng."
+    },
+    "user": {
+      "title": "Danh sách người dùng với vai trò của họ",
+      "subtitle": "Tìm tất cả tài khoản quản trị viên của công ty bạn và vai trò tương ứng của họ.",
+      "export": "Export",
+      "search_user": "Tìm người dùng",
+      "select_role": "Chọn vai trò",
+      "user": "Người dùng",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "address": "Địa chỉ",
+      "role": "Vai trò",
+      "actions": "Hành động",
+      "cannot_delete_last_admin": "Vì người dùng này là quản trị viên duy nhất, nên tài khoản này không thể bị xóa",
+      "edit_user_role_dialog_title": "Chỉnh sửa vai trò người dùng",
+      "remove_user_dialog_title": "Xác nhận xóa người dùng",
+      "remove_user_dialog_subtitle": "Nếu người dùng này không thuộc tổ chức khác thì tài khoản sẽ bị xóa.",
+      "add_user": "Thêm người dùng",
+      "default_role": "Vai trò mặc định",
+      "custom_role_optional": "Vai trò tùy chỉnh (Tùy chọn)"
+    },
+    "role_errors": {
+      "no_roles_selected": "Bạn chưa chọn vai trò nào",
+      "admin": "Admin không thể được sử dụng cùng với vai trò khác",
+      "no_admin_nor_member": "Member phải được chọn",
+      "last_admin": "đây là quản trị viên cuối cùng",
+      "max_of_roles_can_be_selected": "Chỉ được chọn một số lượng vai trò giới hạn"
+    }
+  },
+  "document_page": {
+    "list": {
+      "filters": "Bộ lọc",
+      "document_date": "Ngày tháng",
+      "actions": "Hành động",
+      "search_document": "Tìm biểu mẫu",
+      "create_document": "Tạo biểu mẫu",
+      "creator": "Người tạo",
+      "name": "Tên",
+      "note": "Ghi chú",
+      "total": "Tổng cộng",
+      "date": "Thời gian",
+      "amount": "Giá",
+      "type": "Loại",
+      "delete_document": "Xoá biểu mẫu",
+      "view": "Xem",
+      "download": "Tải xuống",
+      "edit": "Cập nhật",
+      "duplicate": "Sao chép"
+    },
+    "add": {
+      "document": "biểu mẫu",
+      "date": "Thời gian",
+      "item": "Tên",
+      "type": "Loại",
+      "quantity": "Số lượng",
+      "currency": "Tiền tệ",
+      "name": "Tên",
+      "note": "Ghi chú",
+      "price": "Giá",
+      "add_item": "Thêm biểu mẫu",
+      "create_document": "Tạo biểu mẫu"
+    },
+    "edit": {
+      "document": "biểu mẫu",
+      "date": "Thời gian",
+      "item": "Tên",
+      "type": "Loại",
+      "quantity": "Số lượng",
+      "currency": "Tiền tệ",
+      "name": "Tên",
+      "note": "Ghi chú",
+      "price": "Giá",
+      "add_item": "Thêm biểu mẫu",
+      "update_document": "Cập nhật biểu mẫu",
+      "preview": "Xem trước"
+    },
+    "preview": {
+      "document": "biểu mẫu",
+      "date": "Thời gian",
+      "item": "Tên",
+      "type": "Loại",
+      "quantity": "Số lượng",
+      "currency": "Tiền tệ",
+      "name": "Tên",
+      "note": "Ghi chú",
+      "price": "Đơn giá",
+      "send_document": "Gửi biểu mẫu",
+      "download": "Tải xuống",
+      "print": "In",
+      "total": "Tổng cộng",
+      "update_document": "Cập nhật biểu mẫu"
+    },
+    "print": {
+      "document_to": "biểu mẫu tới",
+      "document": "biểu mẫu",
+      "date": "Thời gian",
+      "item": "Tên",
+      "type": "Loại",
+      "quantity": "Số lượng",
+      "currency": "Tiền tệ",
+      "name": "Tên",
+      "note": "Ghi chú",
+      "price": "Đơn giá",
+      "total": "Tổng cộng"
+    }
+  },
+  "autocomplete": {
+    "search": "Tìm kiếm (Ctrl+/)"
+  },
+  "user_page": {
+    "total_users": "Tổng số người dùng",
+    "total_roles": "Tổng số vai trò",
+    "export": "Export",
+    "search_filters": "Bộ lọc tìm kiếm",
+    "search_user": "Tìm người dùng",
+    "select_role": "Chọn vai trò",
+    "user": "Người dùng",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "role": "Vai trò",
+    "actions": "Hành động",
+    "cannot_delete_last_admin": "Vì người dùng này là quản trị viên duy nhất, nên tài khoản này không thể bị xóa",
+    "add_user": "Thêm người dùng",
+    "default_role": "Vai trò mặc định",
+    "custom_role_optional": "Vai trò tùy chỉnh (Tùy chọn)"
+  },
+  "account_settings_page": {
+    "title": "Cài đặt tài khoản",
+    "account": {
+      "title": "Tài khoản",
+      "full_name": "Họ và tên",
+      "email": "Email",
+      "phone_number": "Số điện thoại",
+      "address": "Địa chỉ",
+      "delete_account": "Xóa tài khoản",
+      "deactivate_account": "Vô hiệu hóa tài khoản",
+      "account_deactivation_checkbox": "Xác nhận vô hiệu hóa tài khoản",
+      "account_deactivation_warning": "Vui lòng xác nhận rằng bạn muốn xóa tài khoản của mình",
+      "account_deactivation_confirm": "Bạn có chắc chắn muốn hủy đăng ký của mình không?",
+      "account_deactivation_success": "Đăng ký đã được hủy thành công.",
+      "account_deactivation_fail": "Đăng ký của bạn đã bị hủy!!",
+      "deleted": "Đã bị xóa",
+      "cancelled": "Đã bị hủy"
+    },
+    "security": {
+      "title": "Bảo mật",
+      "change_password": "Đổi mật khẩu",
+      "new_password": "Mật khẩu mới",
+      "new_password_error": "Phải có 8 ký tự, bao gồm 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 ký tự đặc biệt",
+      "confirm_new_password": "Xác nhận mật khẩu mới",
+      "confirm_new_password_error": "Mật khẩu phải trùng khớp",
+      "password_requirements": "Yêu cầu về mật khẩu",
+      "password_requirements_1": "Có tối thiểu 8 ký tự - càng nhiều ký tự càng an toàn",
+      "password_requirements_2": "Có ít nhất một chữ cái viết thường và một chữ cái viết hoa",
+      "password_requirements_3": "Có ít nhất một chữ số, ký hiệu hoặc ký tự khoảng trắng"
+    }
+  }
 }

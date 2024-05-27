@@ -14,52 +14,61 @@ import TableContainer from '@mui/material/TableContainer'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
 
 // ** Configs
-import themeConfig from 'src/configs/themeConfig'
+//import themeConfig from 'src/configs/themeConfig'
 
 // ** Types
-import { InvoiceResponseDto } from 'src/__generated__/AccountifyAPI'
+import { DocumentResponseDto } from 'src/__generated__/AccountifyAPI'
 
 // ** Third Parties Imports
 import { format } from 'date-fns'
 
 // ** Utils Imports
-import { formatInvoiceCurrency } from 'src/utils/invoice'
+//import { formatInvoiceCurrency } from 'src/utils/invoice'
 
 // ** Hooks Imports
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  data: InvoiceResponseDto
+  data: DocumentResponseDto //InvoiceResponseDto
 }
 
-const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
-  borderBottom: 0,
-  paddingLeft: '0 !important',
-  paddingRight: '0 !important',
-  paddingTop: `${theme.spacing(1)} !important`,
-  paddingBottom: `${theme.spacing(1)} !important`
-}))
+// const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
+//   borderBottom: 0,
+//   paddingLeft: '0 !important',
+//   paddingRight: '0 !important',
+//   paddingTop: `${theme.spacing(1)} !important`,
+//   paddingBottom: `${theme.spacing(1)} !important`
+// }))
 
-const CalcWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  '&:not(:last-of-type)': {
-    marginBottom: theme.spacing(2)
-  }
-}))
+// const CalcWrapper = styled(Box)<BoxProps>(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'space-between',
+//   '&:not(:last-of-type)': {
+//     marginBottom: theme.spacing(2)
+//   }
+// }))
 
 const PreviewCard = ({ data }: Props) => {
   // ** Hook
-  const theme = useTheme()
+  //const theme = useTheme()
   const { t } = useTranslation()
+
+  //console.log(data)
 
   if (data) {
     return (
       <Card>
         <CardContent>
           <Grid container>
-            <Grid item sm={6} xs={12} sx={{ mb: { sm: 0, xs: 4 } }}>
+            <Grid item sm={6} xs={12}>
+              <Typography variant='h6'>{data.document_name}</Typography>
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <strong>Date created: </strong>
+              {format(new Date(data?.createdAt ? new Date(data.createdAt) : new Date()), 'dd MMM yyyy')}
+            </Grid>
+            {/* <Grid item sm={6} xs={12} sx={{ mb: { sm: 0, xs: 4 } }}>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
                   <svg
@@ -129,14 +138,14 @@ const PreviewCard = ({ data }: Props) => {
                   </Typography>
                 </Box>
               </Box>
-            </Grid>
-            <Grid item sm={6} xs={12}>
+            </Grid> */}
+            {/* <Grid item sm={6} xs={12} sx={{ mb: { lg: 0, xs: 4 } }}>
               <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}>
                 <Table sx={{ maxWidth: '250px' }}>
                   <TableBody>
                     <TableRow>
                       <MUITableCell>
-                        <Typography variant='h6'>{t('invoice_page.preview.invoice')}</Typography>
+                        <Typography variant='h6'>{t('document_page.preview.invoice')}</Typography>
                       </MUITableCell>
                       <MUITableCell>
                         <Typography variant='h6'>{`#${data.id}`}</Typography>
@@ -144,17 +153,32 @@ const PreviewCard = ({ data }: Props) => {
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography variant='body2'>{t('invoice_page.preview.date')}:</Typography>
+                        <Typography variant='body2'>{t('document_page.preview.date')}:</Typography>
                       </MUITableCell>
                       <MUITableCell>
                         <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                          {format(new Date(data?.date ? new Date(data.date) : new Date()), 'dd MMM yyyy')}
+                          {format(new Date(data?.createdAt ? new Date(data.createdAt) : new Date()), 'dd MMM yyyy')}
                         </Typography>
                       </MUITableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </Box>
+            </Grid> */}
+          </Grid>
+        </CardContent>
+
+        <Divider />
+
+        <CardContent>
+          <Grid container>
+            <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}>
+              <Typography variant='body2' sx={{ mb: 3.5, fontWeight: 600 }}>
+                {/* {t('document_page.preview.name')}: */} Document Id:
+              </Typography>
+              <Typography variant='body2' sx={{ mb: 2 }}>
+                #{data.document_id}
+              </Typography>
             </Grid>
           </Grid>
         </CardContent>
@@ -165,10 +189,10 @@ const PreviewCard = ({ data }: Props) => {
           <Grid container>
             <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}>
               <Typography variant='body2' sx={{ mb: 3.5, fontWeight: 600 }}>
-                {t('invoice_page.preview.name')}:
+                {/* {t('document_page.preview.name')}: */} Latest Version:
               </Typography>
               <Typography variant='body2' sx={{ mb: 2 }}>
-                {t('invoice_page.preview.invoice')} #{data.id}
+                Click to download: {data.url ? data.url : ''}
               </Typography>
             </Grid>
           </Grid>
@@ -176,16 +200,16 @@ const PreviewCard = ({ data }: Props) => {
 
         <Divider />
 
-        <TableContainer>
+        {/* <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>{t('invoice_page.preview.item')}</TableCell>
-                <TableCell>{t('invoice_page.preview.note')}</TableCell>
-                <TableCell>{t('invoice_page.preview.type')}</TableCell>
-                <TableCell>{t('invoice_page.preview.price')}</TableCell>
-                <TableCell>{t('invoice_page.preview.quantity')}</TableCell>
-                <TableCell>{t('invoice_page.preview.total')}</TableCell>
+                <TableCell>{t('document_page.preview.item')}</TableCell>
+                <TableCell>{t('document_page.preview.note')}</TableCell>
+                <TableCell>{t('document_page.preview.type')}</TableCell>
+                <TableCell>{t('document_page.preview.price')}</TableCell>
+                <TableCell>{t('document_page.preview.quantity')}</TableCell>
+                <TableCell>{t('document_page.preview.total')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -201,9 +225,9 @@ const PreviewCard = ({ data }: Props) => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
 
-        <CardContent>
+        {/* <CardContent>
           <Grid container>
             <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>
               <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
@@ -243,13 +267,12 @@ const PreviewCard = ({ data }: Props) => {
               </CalcWrapper>
             </Grid>
           </Grid>
-        </CardContent>
-
+        </CardContent> */}
         <Divider />
 
         <CardContent>
           <Typography variant='body2'>
-            <strong>{t('invoice_page.preview.note')}:</strong> Note #{data.id}
+            <strong>{t('document_page.preview.note')}:</strong> {data.note ? data.note : 'No note'}
           </Typography>
         </CardContent>
       </Card>

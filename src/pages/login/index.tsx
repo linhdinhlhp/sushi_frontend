@@ -130,7 +130,6 @@ const LoginPage = () => {
       if (res && res.ok) {
         const returnUrl = router.query.returnUrl
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-
         router.replace(redirectURL as string)
       } else {
         setError('email', {

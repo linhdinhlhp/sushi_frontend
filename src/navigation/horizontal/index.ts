@@ -30,20 +30,20 @@ const navigation = (): HorizontalNavItemsType => {
       icon: 'mdi:shield-outline'
     },
     {
-      title: 'documentary',
+      title: 'document',
       icon: 'mdi:file-document-outline',
       children: [
         {
           action: 'read',
-          subject: 'invoice',
-          title: 'documentary list',
-          path: `/${uniqueName}/invoice/list`
+          subject: 'document',
+          title: 'document list',
+          path: `/${uniqueName}/document/list`
         },
         {
           action: 'create',
-          subject: 'invoice',
-          title: 'navbar.documentary_page.add',
-          path: `/${uniqueName}/invoice/add`
+          subject: 'document',
+          title: 'navbar.document_page.add',
+          path: `/${uniqueName}/document/add`
         }
       ]
     },

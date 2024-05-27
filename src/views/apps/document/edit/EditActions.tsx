@@ -1,3 +1,6 @@
+// ** Next Import
+import Link from 'next/link'
+
 // ** MUI Imports
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
@@ -8,14 +11,23 @@ import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import InputLabel from '@mui/material/InputLabel'
 import Box, { BoxProps } from '@mui/material/Box'
-import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
+import FormControl from '@mui/material/FormControl'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+// ** Utils Imports
+import { getInvoicePreviewUrl } from 'src/utils/router/invoice'
+
 // ** Third Party Imports
 import { useTranslation } from 'react-i18next'
+
+interface EditActionsProps {
+  id: string | undefined
+  onSubmit: () => void
+  toggleAddPaymentDrawer: () => void
+}
 
 const OptionsWrapper = styled(Box)<BoxProps>(() => ({
   display: 'flex',
@@ -23,12 +35,8 @@ const OptionsWrapper = styled(Box)<BoxProps>(() => ({
   justifyContent: 'space-between'
 }))
 
-export interface AddActionsProps {
-  onSubmit: () => void
-  isSubmitDisabled: () => boolean
-}
-
-const AddActions = ({ onSubmit, isSubmitDisabled }: AddActionsProps) => {
+const EditActions = ({ id, onSubmit, toggleAddPaymentDrawer }: EditActionsProps) => {
+  // ** Hook
   const { t } = useTranslation()
 
   return (
@@ -41,14 +49,36 @@ const AddActions = ({ onSubmit, isSubmitDisabled }: AddActionsProps) => {
               sx={{ mb: 3.5 }}
               variant='contained'
               startIcon={<Icon icon='mdi:send-outline' />}
-              disabled={isSubmitDisabled()}
               onClick={() => onSubmit()}
             >
-              {t('invoice_page.add.create_invoice')}
+              {t('document_page.edit.update_invoice')}
+            </Button>
+            <Button
+              fullWidth
+              sx={{ mb: 3.5 }}
+              component={Link}
+              color='secondary'
+              variant='outlined'
+              href={getInvoicePreviewUrl(id)}
+            >
+              {t('document_page.edit.preview')}
+            </Button>
+            <Button fullWidth color='secondary' variant='outlined' sx={{ mb: 3.5 }}>
+              Save
+            </Button>
+            <Button
+              fullWidth
+              color='success'
+              variant='contained'
+              onClick={toggleAddPaymentDrawer}
+              startIcon={<Icon icon='mdi:currency-usd' />}
+            >
+              Add Payment
             </Button>
           </CardContent>
         </Card>
       </Grid>
+
       <Grid item xs={12}>
         <FormControl fullWidth>
           <InputLabel id='payment-select'>Accept payments via</InputLabel>
@@ -68,34 +98,34 @@ const AddActions = ({ onSubmit, isSubmitDisabled }: AddActionsProps) => {
         </FormControl>
         <OptionsWrapper sx={{ mb: 1 }}>
           <InputLabel
-            htmlFor='invoice-add-payment-terms'
+            htmlFor='invoice-edit-payment-terms'
             sx={{ cursor: 'pointer', fontSize: '0.875rem', color: 'text.secondary' }}
           >
             Payment Terms
           </InputLabel>
-          <Switch defaultChecked id='invoice-add-payment-terms' />
+          <Switch defaultChecked id='invoice-edit-payment-terms' />
         </OptionsWrapper>
         <OptionsWrapper sx={{ mb: 1 }}>
           <InputLabel
-            htmlFor='invoice-add-client-notes'
+            htmlFor='invoice-edit-client-notes'
             sx={{ cursor: 'pointer', fontSize: '0.875rem', color: 'text.secondary' }}
           >
-            EDit file
+            Client Notes
           </InputLabel>
-          <Switch id='invoice-add-client-notes' />
+          <Switch id='invoice-edit-client-notes' />
         </OptionsWrapper>
         <OptionsWrapper>
           <InputLabel
-            htmlFor='invoice-add-payment-stub'
+            htmlFor='invoice-edit-payment-stub'
             sx={{ cursor: 'pointer', fontSize: '0.875rem', color: 'text.secondary' }}
           >
             Payment Stub
           </InputLabel>
-          <Switch id='invoice-add-payment-stub' />
+          <Switch id='invoice-edit-payment-stub' />
         </OptionsWrapper>
       </Grid>
     </Grid>
   )
 }
 
-export default AddActions
+export default EditActions

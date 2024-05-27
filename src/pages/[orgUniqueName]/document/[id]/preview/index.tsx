@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 // ** React Imports
 // ** Components Imports
-import Preview from 'src/views/apps/invoice/preview/Preview'
+import Preview from 'src/views/apps/document/preview/Preview'
 
 const InvoicePreview = () => {
   const router = useRouter()

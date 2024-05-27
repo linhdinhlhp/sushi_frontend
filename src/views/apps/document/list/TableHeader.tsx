@@ -56,9 +56,9 @@ const TableHeader = (props: TableHeaderProps) => {
         defaultValue=''
         sx={{ mr: 4, mb: 2 }}
         disabled={selectedRows && selectedRows.length === 0}
-        renderValue={selected => (selected.length === 0 ? t('invoice_page.list.actions') : selected)}
+        renderValue={selected => (selected.length === 0 ? t('document_page.list.actions') : selected)}
       >
-        <MenuItem disabled>{t('invoice_page.list.actions')}</MenuItem>
+        <MenuItem disabled>{t('document_page.list.actions')}</MenuItem>
         <MenuItem value='Delete'>Delete</MenuItem>
         <MenuItem value='Edit'>Edit</MenuItem>
         <MenuItem value='Send'>Send</MenuItem>
@@ -68,17 +68,17 @@ const TableHeader = (props: TableHeaderProps) => {
           size='small'
           value={value}
           sx={{ mr: 4, mb: 2 }}
-          placeholder={t('invoice_page.list.search_invoice') as string}
+          placeholder={t('document_page.list.search_document') as string}
           onChange={e => handleFilter(e.target.value)}
         />
         <Button
           sx={{ mb: 2 }}
           component={Link}
           variant='contained'
-          href={`/${uniqueName}/invoice/add`}
+          href={`/${uniqueName}/document/add`}
           disabled={!ability?.can('create', 'invoice')}
         >
-          {t('invoice_page.list.create_invoice')}
+          {t('document_page.list.create_document')}
         </Button>
       </Box>
     </Box>

@@ -100,14 +100,15 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 export interface AddCardProps {
-  setFormData: (value: any) => void
   date: DateType
   setDate: (value: DateType) => void
-  currency: CurrencyType
-  setCurrency: (value: CurrencyType) => void
+  documentName: string
+  setDocumentName: (value: string) => void
+  documentNote: string
+  setDocumentNote: (value: string) => void
 }
 
-const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardProps) => {
+const AddCard = ({ date, setDate, documentName, setDocumentName, documentNote, setDocumentNote }: AddCardProps) => {
   // ** States
   // const [count, setCount] = useState<number>(1)
   const [document, setDocument] = useState<any>()
@@ -116,19 +117,6 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
   // ** Hook
   const theme = useTheme()
   const { t } = useTranslation()
-
-  const handleChangeForm = (index: number, key: string, value: any): void => {
-    setFormData((prevFormData: any[]) => {
-      const newFormData = [...prevFormData]
-      newFormData.forEach(formData => {
-        if (formData.index === index) {
-          formData[key] = value
-        }
-      })
-
-      return newFormData
-    })
-  }
 
   const handleAddFile = (event: any) => {
     const file = event.target.files[0]
@@ -149,21 +137,7 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
       console.error('Error:', error)
     }
 
-    router.replace(`/${getOrgUniqueName()}/invoice/list/`)
-  }
-
-  // ** Deletes form
-  const deleteForm = (e: SyntheticEvent, i: number) => {
-    e.preventDefault()
-
-    // @ts-ignore
-    e.target.closest('.repeater-wrapper').remove()
-
-    setFormData((prevFormData: any[]) => {
-      const newFormData = [...prevFormData]
-
-      return newFormData.filter(item => item.index !== i)
-    })
+    router.replace(`/${getOrgUniqueName()}/document/list/`)
   }
 
   return (
@@ -245,13 +219,12 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-start', xs: 'flex-start' } }}>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ msScrollLimit: 2, width: '125px' }}>
-                  {/* {t('invoice_page.add.invoice')} */} Biểu mẫu
+                  {t('document_page.add.document')}
                 </Typography>
               </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('invoice_page.add.date')}: */}
-                  Tên biểu mẫu :
+                  {t('document_page.add.name')}:
                 </Typography>
                 {/* <DatePicker
                   id='issue-date'
@@ -268,19 +241,25 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
                   id='text'
                   required
                 /> */}
-                <TextField size='small' type='text' placeholder='Input data' />
+                <TextField
+                  size='small'
+                  type='text'
+                  placeholder='Input data'
+                  value={documentName}
+                  onChange={e => setDocumentName(e.target.value)}
+                  sx={{ width: { sm: '250px', xs: '170px' } }}
+                />
               </Box>
-              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+              {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('invoice_page.add.date')}: */}
-                  Tên phiên bản :
+                  {/* {t('document_page.add.date')}: */}
+              {/* Tên phiên bản :
                 </Typography>
                 <TextField size='small' type='text' placeholder='Input data' />
-              </Box>
+              </Box> */}
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('invoice_page.add.date')}: */}
-                  Ngày tạo :
+                  {t('document_page.add.date')}:
                 </Typography>
                 <DatePicker
                   id='issue-date'
@@ -289,36 +268,41 @@ const AddCard = ({ setFormData, date, setDate, currency, setCurrency }: AddCardP
                   onChange={(date: Date) => setDate(date)}
                 />
               </Box>
-              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+              {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('invoice_page.add.currency')}: */}
-                  Loại file :
-                </Typography>
+                  {/* {t('document_page.add.currency')}: */}
+              {/* Loại file : */}
+              {/* </Typography>
                 <Select size='small' value={currency} onChange={e => setCurrency(e.target.value as CurrencyType)}>
                   <MenuItem value={CurrencyType.VND}>docx</MenuItem>
                   <MenuItem value={CurrencyType.USD}>xlsx</MenuItem>
                   <MenuItem value={CurrencyType.USD}>pptx</MenuItem>
                 </Select>
-              </Box>
-              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+              </Box> */}
+              {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('invoice_page.add.currency')}: */}
-                  Chon file:
+                  {/* {t('document_page.add.currency')}: */}
+              {/* Chon file:
                 </Typography>
                 <TextField type='file' onChange={handleAddFile} inputProps={{ accept: '.docx,.pptx,.xlsx' }} />
+              </Box> */}
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
+                  {t('document_page.add.note')}:
+                </Typography>
+                <TextField
+                  rows={4}
+                  multiline
+                  label='Note'
+                  id='textarea-outlined-static'
+                  value={documentNote}
+                  onChange={e => setDocumentNote(e.target.value)}
+                  sx={{ width: { sm: '250px', xs: '170px' } }}
+                />
               </Box>
             </Box>
           </Grid>
         </Grid>
-        <Button
-          component='label'
-          size='small'
-          variant='contained'
-          startIcon={<Icon icon='mdi:plus' fontSize={20} />}
-          onClick={() => addItem()}
-        >
-          Add Document
-        </Button>
       </CardContent>
 
       <Divider />

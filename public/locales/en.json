@@ -1,254 +1,252 @@
 {
-    "navbar": {
-        "dashboards_page": {
-            "dashboards": "Dashboards",
-            "analytics": "Analytics"
-        },
-        "home": "Home",
-        "role_page": "Role Page",
-        "invoice_page": {
-            "invoice": "Invoice",
-            "list": "List",
-            "add": "Add"
-        },
-        "user_page": "User Page",
-        "account_settings_page": {
-            "account_settings": "Account Settings",
-            "account": "Account",
-            "security": "Security"
-        }
+  "navbar": {
+    "dashboards_page": {
+      "dashboards": "Dashboards",
+      "analytics": "Analytics"
     },
-    "autocomplete": {
-        "search": "Search (Ctrl+/)"
+    "home": "Home",
+    "role_page": "Role Page",
+    "document_page": {
+      "document": "Document",
+      "list": "List",
+      "add": "Add"
     },
-    "user_dropdown": {
-        "account_settings": "Account Settings",
-        "organization": "Organizations",
-        "chat": "Chat",
-        "settings": "Settings",
-        "pricing": "Pricing",
-        "faq": "FAQ",
-        "logout": "Logout"
-    },
-    "button": {
-        "submit": "Submit",
-        "edit": "Edit",
-        "delete": "Delete",
-        "cancel": "Cancel",
-        "save_changes": "Save Changes",
-        "reset": "Reset",
-        "yes": "Yes",
-        "ok": "OK"
-    },
-    "toast_message": {
-        "login_success": "Login succeed",
-        "register_success": "Register succeed",
-        "add_role_success": "Add role succeed",
-        "update_role_success": "Update role succeed",
-        "delete_role_success": "Delete role succeed",
-        "add_user_success": "Add user succeed",
-        "update_user_success": "Update user role succeed",
-        "delete_user_success": "Remove user from this organization succeed"
-    },
-    "new": {
-        "create_organization": "Create Organization",
-        "organization_name": "Organization Name",
-        "enter_new_organization_name": "Enter new organization name",
-        "organization_url": "Organization URL",
-        "enter_new_organization_unique_url": "Enter new organization unique URL",
-        "create": "Create"
-    },
-    "home": {
-        "choose_an_organization": "Choose an organization",
-        "open": "Open",
-        "create_organization_header": "Create new organization 🚀",
-        "create_organization_description": "Kick start your project",
-        "create": "Create"
-    },
-    "role_page": {
-        "role": {
-            "title": "Roles List",
-            "subtitle_1": "A role provided access to predefined menus and features so that depending on assigned role an administrator can have access to what he need",
-            "subtitle_2": "An organization can have up to {{MAX_ROLES_PER_ORGANIZATION}} roles",
-            "total_users": "Total {{totalUsers}} users",
-            "add": "Add",
-            "edit": "Edit",
-            "show": "Show",
-            "role": "Role",
-            "add_role": "Add Role",
-            "edit_role": "Edit Role",
-            "show_role": "Show Role",
-            "add_role_if_not_exists": "Add role, if it doesn't exist.",
-            "set_role_permissions": "Set role permissions",
-            "role_name": "Role Name",
-            "enter_role_name": "Enter Role Name",
-            "role_permissions": "Role Permissions",
-            "administrator_access": "Administrator Access",
-            "allow_full_access": "Allows a full access to the system",
-            "select_all": "Select All",
-            "create": "Create",
-            "read": "Read",
-            "update": "Update",
-            "delete": "Delete",
-            "should_not_edit": "This is the default role, you shouldn't edit this",
-            "delete_role_dialog_title": "Delete Role Confirmation",
-            "delete_role_dialog_subtitle": "Delete this role will unassign it from every users."
-        },
-        "user": {
-            "title": "Total users with their roles",
-            "subtitle": "Find all of your company’s administrator accounts and their associate roles.",
-            "export": "Export",
-            "search_user": "Search User",
-            "select_role": "Select Role",
-            "user": "User",
-            "email": "Email",
-            "phone": "Phone",
-            "address": "Address",
-            "role": "Role",
-            "actions": "Actions",
-            "cannot_delete_last_admin": "Since this user is the only admin, this account cannot be deleted",
-            "edit_user_role_dialog_title": "Edit User Role",
-            "remove_user_dialog_title": "Remove User Confirmation",
-            "remove_user_dialog_subtitle": "If this user does not belong to other organizations, it will be deleted.",
-            "add_user": "Add User",
-            "default_role": "Default Role",
-            "custom_role_optional": "Custom Role (Optional)"
-        },
-        "role_errors": {
-            "no_roles_selected": "No roles have been selected",
-            "admin": "Admin cannot be used with other roles",
-            "no_admin_nor_member": "Member has to be selected",
-            "last_admin": "This is the last admin",
-            "max_of_roles_can_be_selected": "Only a maximum of roles can be selected"
-        }
-    },
-    "documentary_page": {
-      "documentary": "Documentary"
-    },
-    "invoice_page": {
-        "list": {
-            "filters": "Filters",
-            "invoice_date": "Invoice Date",
-            "actions": "Actions",
-            "search_invoice": "Search Invoice",
-            "create_invoice": "Create Invoice",
-            "creator": "Creator",
-            "name": "Name",
-            "note": "Note",
-            "total": "Total",
-            "date": "Date",
-            "amount": "Amount",
-            "type": "Type",
-            "delete_invoice": "Delete Invoice",
-            "view": "View",
-            "download": "Download",
-            "edit": "Edit",
-            "duplicate": "Duplicate"
-        },
-        "add": {
-            "invoice": "Invoice",
-            "date": "Date",
-            "item": "Item",
-            "type": "Type",
-            "quantity": "Quantity",
-            "currency": "Currency",
-            "name": "Name",
-            "note": "Note",
-            "price": "Price",
-            "add_item": "Add Item",
-            "create_invoice": "Create Invoice"
-        },
-        "edit": {
-            "invoice": "Invoice",
-            "date": "Date",
-            "item": "Item",
-            "type": "Type",
-            "quantity": "Quantity",
-            "currency": "Currency",
-            "name": "Name",
-            "note": "Note",
-            "price": "Price",
-            "add_item": "Add Item",
-            "update_invoice": "Update Invoice",
-            "preview": "Preview"
-        },
-        "preview": {
-            "invoice": "Invoice",
-            "date": "Date",
-            "item": "Item",
-            "type": "Type",
-            "quantity": "Quantity",
-            "currency": "Currency",
-            "name": "Name",
-            "note": "Note",
-            "price": "Price",
-            "send_invoice": "Send Invoice",
-            "download": "Download",
-            "print": "Print",
-            "total": "Total",
-            "update_invoice": "Update Invoice"
-        },
-        "print": {
-            "invoice_to": "Invoice To",
-            "invoice": "Invoice",
-            "date": "Date",
-            "item": "Item",
-            "type": "Type",
-            "quantity": "Quantity",
-            "currency": "Currency",
-            "name": "Name",
-            "note": "Note",
-            "price": "Price",
-            "total": "Total"
-        }
-    },
-    "user_page": {
-        "total_users": "Total Users",
-        "total_roles": "Total Roles",
-        "export": "Export",
-        "search_filters": "Search Filters",
-        "search_user": "Search User",
-        "select_role": "Select Role",
-        "user": "User",
-        "email": "Email",
-        "phone": "Phone",
-        "address": "Address",
-        "role": "Role",
-        "actions": "Actions",
-        "cannot_delete_last_admin": "Since this user is the only admin, this account cannot be deleted",
-        "add_user": "Add User",
-        "default_role": "Default Role",
-        "custom_role_optional": "Custom Role (Optional)"
-    },
+    "user_page": "User Page",
     "account_settings_page": {
-        "title": "Account Settings",
-        "account": {
-            "title": "Account",
-            "full_name": "Full Name",
-            "email": "Email",
-            "phone_number": "Phone Number",
-            "address": "Address",
-            "delete_account": "Delete Account",
-            "deactivate_account": "Deactivate Account",
-            "account_deactivation_checkbox": "I confirm my account deactivation",
-            "account_deactivation_warning": "Please confirm you want to delete account",
-            "account_deactivation_confirm": "Are you sure you would like to cancel your subscription?",
-            "account_deactivation_success": "Your subscription cancelled successfully.",
-            "account_deactivation_fail": "Unsubscription Cancelled!!",
-            "deleted": "Deleted",
-            "cancelled": "Cancelled"
-        },
-        "security": {
-            "title": "Security",
-            "change_password": "Change Password",
-            "new_password": "New Password",
-            "new_password_error": "Must contain 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special case character",
-            "confirm_new_password": "Confirm New Password",
-            "confirm_new_password_error": "Passwords must match",
-            "password_requirements": "Password Requirements",
-            "password_requirements_1": "Minimum 8 characters long - the more, the better",
-            "password_requirements_2": "At least one lowercase & one uppercase character",
-            "password_requirements_3": "At least one number, symbol, or whitespace character"
-        }
+      "account_settings": "Account Settings",
+      "account": "Account",
+      "security": "Security"
     }
+  },
+  "autocomplete": {
+    "search": "Search (Ctrl+/)"
+  },
+  "user_dropdown": {
+    "account_settings": "Account Settings",
+    "organization": "Organizations",
+    "chat": "Chat",
+    "settings": "Settings",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "logout": "Logout"
+  },
+  "button": {
+    "submit": "Submit",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save_changes": "Save Changes",
+    "reset": "Reset",
+    "yes": "Yes",
+    "ok": "OK"
+  },
+  "toast_message": {
+    "login_success": "Login succeed",
+    "register_success": "Register succeed",
+    "add_role_success": "Add role succeed",
+    "update_role_success": "Update role succeed",
+    "delete_role_success": "Delete role succeed",
+    "add_user_success": "Add user succeed",
+    "update_user_success": "Update user role succeed",
+    "delete_user_success": "Remove user from this organization succeed"
+  },
+  "new": {
+    "create_organization": "Create Organization",
+    "organization_name": "Organization Name",
+    "enter_new_organization_name": "Enter new organization name",
+    "organization_url": "Organization URL",
+    "enter_new_organization_unique_url": "Enter new organization unique URL",
+    "create": "Create"
+  },
+  "home": {
+    "choose_an_organization": "Choose an organization",
+    "open": "Open",
+    "create_organization_header": "Create new organization 🚀",
+    "create_organization_description": "Kick start your project",
+    "create": "Create"
+  },
+  "role_page": {
+    "role": {
+      "title": "Roles List",
+      "subtitle_1": "A role provided access to predefined menus and features so that depending on assigned role an administrator can have access to what he need",
+      "subtitle_2": "An organization can have up to {{MAX_ROLES_PER_ORGANIZATION}} roles",
+      "total_users": "Total {{totalUsers}} users",
+      "add": "Add",
+      "edit": "Edit",
+      "show": "Show",
+      "role": "Role",
+      "add_role": "Add Role",
+      "edit_role": "Edit Role",
+      "show_role": "Show Role",
+      "add_role_if_not_exists": "Add role, if it doesn't exist.",
+      "set_role_permissions": "Set role permissions",
+      "role_name": "Role Name",
+      "enter_role_name": "Enter Role Name",
+      "role_permissions": "Role Permissions",
+      "administrator_access": "Administrator Access",
+      "allow_full_access": "Allows a full access to the system",
+      "select_all": "Select All",
+      "create": "Create",
+      "read": "Read",
+      "update": "Update",
+      "delete": "Delete",
+      "should_not_edit": "This is the default role, you shouldn't edit this",
+      "delete_role_dialog_title": "Delete Role Confirmation",
+      "delete_role_dialog_subtitle": "Delete this role will unassign it from every users."
+    },
+    "user": {
+      "title": "Total users with their roles",
+      "subtitle": "Find all of your company’s administrator accounts and their associate roles.",
+      "export": "Export",
+      "search_user": "Search User",
+      "select_role": "Select Role",
+      "user": "User",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "role": "Role",
+      "actions": "Actions",
+      "cannot_delete_last_admin": "Since this user is the only admin, this account cannot be deleted",
+      "edit_user_role_dialog_title": "Edit User Role",
+      "remove_user_dialog_title": "Remove User Confirmation",
+      "remove_user_dialog_subtitle": "If this user does not belong to other organizations, it will be deleted.",
+      "add_user": "Add User",
+      "default_role": "Default Role",
+      "custom_role_optional": "Custom Role (Optional)"
+    },
+    "role_errors": {
+      "no_roles_selected": "No roles have been selected",
+      "admin": "Admin cannot be used with other roles",
+      "no_admin_nor_member": "Member has to be selected",
+      "last_admin": "This is the last admin",
+      "max_of_roles_can_be_selected": "Only a maximum of roles can be selected"
+    }
+  },
+  "document_page": {
+    "document": "Document",
+    "list": {
+      "filters": "Filters",
+      "document_date": "Document Date",
+      "actions": "Actions",
+      "search_document": "Search Document",
+      "create_document": "Create Document",
+      "creator": "Creator",
+      "name": "Name",
+      "note": "Note",
+      "total": "Creator",
+      "date": "Date",
+      "amount": "Amount",
+      "type": "Type",
+      "delete_document": "Delete Document",
+      "view": "View",
+      "download": "Download",
+      "edit": "Edit",
+      "duplicate": "Duplicate"
+    },
+    "add": {
+      "document": "Document",
+      "date": "Date",
+      "item": "Item",
+      "type": "Type",
+      "quantity": "Quantity",
+      "currency": "Currency",
+      "name": "Name",
+      "note": "Note",
+      "price": "Price",
+      "add_item": "Add Item",
+      "create_document": "Create Document"
+    },
+    "edit": {
+      "document": "Document",
+      "date": "Date",
+      "item": "Item",
+      "type": "Type",
+      "quantity": "Quantity",
+      "currency": "Currency",
+      "name": "Name",
+      "note": "Note",
+      "price": "Price",
+      "add_item": "Add Item",
+      "update_document": "Update Document",
+      "preview": "Preview"
+    },
+    "preview": {
+      "document": "Document",
+      "date": "Date",
+      "item": "Item",
+      "type": "Type",
+      "quantity": "Quantity",
+      "currency": "Currency",
+      "name": "Name",
+      "note": "Note",
+      "price": "Price",
+      "send_document": "Send Document",
+      "download": "Download",
+      "print": "Print",
+      "total": "Creator",
+      "update_document": "Update Document"
+    },
+    "print": {
+      "document_to": "Document To",
+      "document": "Document",
+      "date": "Date",
+      "item": "Item",
+      "type": "Type",
+      "quantity": "Quantity",
+      "currency": "Currency",
+      "name": "Name",
+      "note": "Note",
+      "price": "Price",
+      "total": "Total"
+    }
+  },
+  "user_page": {
+    "total_users": "Total Users",
+    "total_roles": "Total Roles",
+    "export": "Export",
+    "search_filters": "Search Filters",
+    "search_user": "Search User",
+    "select_role": "Select Role",
+    "user": "User",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "role": "Role",
+    "actions": "Actions",
+    "cannot_delete_last_admin": "Since this user is the only admin, this account cannot be deleted",
+    "add_user": "Add User",
+    "default_role": "Default Role",
+    "custom_role_optional": "Custom Role (Optional)"
+  },
+  "account_settings_page": {
+    "title": "Account Settings",
+    "account": {
+      "title": "Account",
+      "full_name": "Full Name",
+      "email": "Email",
+      "phone_number": "Phone Number",
+      "address": "Address",
+      "delete_account": "Delete Account",
+      "deactivate_account": "Deactivate Account",
+      "account_deactivation_checkbox": "I confirm my account deactivation",
+      "account_deactivation_warning": "Please confirm you want to delete account",
+      "account_deactivation_confirm": "Are you sure you would like to cancel your subscription?",
+      "account_deactivation_success": "Your subscription cancelled successfully.",
+      "account_deactivation_fail": "Unsubscription Cancelled!!",
+      "deleted": "Deleted",
+      "cancelled": "Cancelled"
+    },
+    "security": {
+      "title": "Security",
+      "change_password": "Change Password",
+      "new_password": "New Password",
+      "new_password_error": "Must contain 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special case character",
+      "confirm_new_password": "Confirm New Password",
+      "confirm_new_password_error": "Passwords must match",
+      "password_requirements": "Password Requirements",
+      "password_requirements_1": "Minimum 8 characters long - the more, the better",
+      "password_requirements_2": "At least one lowercase & one uppercase character",
+      "password_requirements_3": "At least one number, symbol, or whitespace character"
+    }
+  }
 }

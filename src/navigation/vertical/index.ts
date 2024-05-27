@@ -30,20 +30,20 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:shield-outline'
     },
     {
-      title: 'documentary_page.documentary',
+      title: 'document_page.document',
       icon: 'mdi:file-document-outline',
       children: [
         {
           action: 'read',
-          subject: 'invoice',
-          title: 'documentary list',
-          path: `/${uniqueName}/invoice/list`
+          subject: 'document',
+          title: 'document list',
+          path: `/${uniqueName}/document/list`
         },
         {
           action: 'create',
-          subject: 'invoice',
-          title: 'add documentary',
-          path: `/${uniqueName}/invoice/add`
+          subject: 'document',
+          title: 'add document',
+          path: `/${uniqueName}/document/add`
         }
       ]
     },

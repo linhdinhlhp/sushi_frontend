@@ -1,17 +1,17 @@
 import { getOrgUniqueName } from '../organization'
 
 export const getInvoiceListUrl = (): string => {
-  return `/${getOrgUniqueName()}/invoice/list`
+  return `/${getOrgUniqueName()}/document/list`
 }
 
 export const getInvoiceEditUrl = (id: string | number | undefined): string => {
-  return `/${getOrgUniqueName()}/invoice/edit/${id}`
+  return `/${getOrgUniqueName()}/document/edit/${id}`
 }
 
 export const getInvoicePreviewUrl = (id: string | number | undefined): string => {
-  return `/${getOrgUniqueName()}/invoice/preview/${id}`
+  return `/${getOrgUniqueName()}/document/preview/${id}`
 }
 
 export const getInvoicePrintUrl = (id: string | number | undefined): string => {
-  return `/${getOrgUniqueName()}/invoice/print/${id}`
+  return `/${getOrgUniqueName()}/document/print/${id}`
 }

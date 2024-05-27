@@ -8,7 +8,7 @@ import { ReactNode } from 'react'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Components Imports
-import PrintPage from 'src/views/apps/invoice/print/PrintPage'
+import PrintPage from 'src/views/apps/document/print/PrintPage'
 
 const InvoicePrint = () => {
   const router = useRouter()

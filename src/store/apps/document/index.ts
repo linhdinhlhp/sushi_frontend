@@ -2,7 +2,12 @@
 import { createSlice, createAsyncThunk, Dispatch } from '@reduxjs/toolkit'
 
 // ** Types
-import { Api, DocumentResponseDto, InvoiceResponseDto } from 'src/__generated__/AccountifyAPI'
+import {
+  Api,
+  CreateDocumentRequestDto,
+  DocumentResponseDto,
+  UpdateDocumentRequestDto
+} from 'src/__generated__/AccountifyAPI'
 
 // ** Utils
 import { getAccessToken, getOrgId } from 'src/utils/localStorage'
@@ -42,6 +47,78 @@ export const fetchDocuments = createAsyncThunk('appDocuments/fetchDocument', asy
   }
 })
 
+// ** Fetch 1 document
+export const fetchAnDocument = createAsyncThunk('appDocuments/fetchAnDocument', async (id: number) => {
+  const organizationId = getOrgId()
+  const storedToken = getAccessToken()
+
+  try {
+    const response = await new Api({
+      baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
+      timeout: 30 * 1000, // 30 seconds
+      headers: {
+        Authorization: `Bearer ${storedToken}`
+      }
+    }).internal.getDocumentByIdForAnOrg(organizationId!, id)
+
+    return response.data
+  } catch (error: any) {
+    toast.error(error.message)
+  }
+})
+
+// ** Add Document
+export const addDocument = createAsyncThunk(
+  'appDocuments/addDocument',
+  async (data: CreateDocumentRequestDto, { dispatch }: Redux) => {
+    const organizationId = getOrgId()
+    const storedToken = getAccessToken()
+
+    try {
+      const response = await new Api({
+        baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
+        timeout: 30 * 1000, // 30 seconds
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        }
+      }).internal.createDocumentsForAnOrganization(organizationId, data)
+
+      dispatch(fetchDocuments())
+      toast.success('Add Document succeed')
+
+      return response.data
+    } catch (error: any) {
+      toast.error(error.message)
+    }
+  }
+)
+
+// ** Update Document
+export const updateDocument = createAsyncThunk(
+  'appDocuments/updateDocument',
+  async (data: UpdateDocumentRequestDto & { documentId: number }, { dispatch }: Redux) => {
+    const organizationId = getOrgId()
+    const storedToken = getAccessToken()
+
+    try {
+      const response = await new Api({
+        baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
+        timeout: 30 * 1000, // 30 seconds
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        }
+      }).internal.updateAnDocumentForAnOrganization(organizationId, data.documentId, data)
+
+      dispatch(fetchDocuments())
+      toast.success('Update document succeed')
+
+      return response.data
+    } catch (error: any) {
+      toast.error(error.message)
+    }
+  }
+)
+
 export const appDocumentsSlice = createSlice({
   name: 'appDocuments',
   initialState: {
@@ -57,7 +134,10 @@ export const appDocumentsSlice = createSlice({
       state.data = action.payload?.documents || []
       state.total = action.payload?.metadata.total || 0
       state.params = action.payload?.metadata.params || {}
-    })
+    }),
+      builder.addCase(fetchAnDocument.fulfilled, (state, action) => {
+        state.document = action.payload || {}
+      })
   }
 })
 

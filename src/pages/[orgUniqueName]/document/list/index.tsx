@@ -27,7 +27,7 @@ import { useTranslation } from 'react-i18next'
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchInvoice, deleteInvoice } from 'src/store/apps/invoice'
+import { deleteInvoice } from 'src/store/apps/invoice'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -36,17 +36,16 @@ import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
-import { getInvoiceEditUrl, getInvoicePreviewUrl } from 'src/utils/router/invoice'
-import { formatInvoiceCurrency } from 'src/utils/invoice'
+import { getDocumentEditUrl, getDocumentPreviewUrl } from 'src/utils/router/document'
 
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
-import TableHeader from 'src/views/apps/invoice/list/TableHeader'
+import TableHeader from 'src/views/apps/document/list/TableHeader'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-import { DocumentResponseDto, InvoiceResponseDto, OrganizationUserResponseDto } from 'src/__generated__/AccountifyAPI'
+import { DocumentResponseDto, OrganizationUserResponseDto } from 'src/__generated__/AccountifyAPI'
 
 // ** Context Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
@@ -133,7 +132,7 @@ const InvoiceList = () => {
     setEndDateRange(end)
   }
 
-  console.log(store.data)
+  //console.log(store.data)
 
   const defaultColumns: GridColDef[] = [
     {
@@ -141,19 +140,19 @@ const InvoiceList = () => {
       field: 'id',
       minWidth: 50,
       headerName: 'id',
-      renderCell: ({ row }: CellType) => <LinkStyled href={getInvoicePreviewUrl(row.id)}>{row.id}</LinkStyled>
+      renderCell: ({ row }: CellType) => <LinkStyled href={getDocumentPreviewUrl(row.id)}>{row.id}</LinkStyled>
     },
     {
       flex: 0.2,
-      field: 'organizationId',
-      minWidth: 150,
-      headerName: t('invoice_page.list.creator') as string,
+      field: 'document_name',
+      minWidth: 50,
+      headerName: t('document_page.list.name') as string,
       renderCell: ({ row }: CellType) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Typography noWrap variant='body2' sx={{ color: 'text.primary', fontWeight: 600 }}>
-                {row.organizationId}
+                {row.document_name}
               </Typography>
             </Box>
           </Box>
@@ -163,16 +162,20 @@ const InvoiceList = () => {
     {
       flex: 0.1,
       minWidth: 90,
-      field: 'document_id',
-      headerName: t('invoice_page.list.total') as string,
-      renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.document_id}</Typography>
+      field: 'organizationId',
+      headerName: t('document_page.list.total') as string,
+      renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.organizationId}</Typography>
     },
     {
       flex: 0.2,
       minWidth: 125,
-      field: 'document_name',
-      headerName: t('invoice_page.list.date') as string,
-      renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.document_name}</Typography>
+      field: 'createdAt',
+      headerName: t('document_page.list.date') as string,
+      renderCell: ({ row }: CellType) => (
+        <Typography variant='body2'>
+          {format(row.createdAt ? new Date(row.createdAt) : new Date(), 'dd/MM/yyyy')}
+        </Typography>
+      )
     }
   ]
 
@@ -183,10 +186,10 @@ const InvoiceList = () => {
       minWidth: 130,
       sortable: false,
       field: 'actions',
-      headerName: t('invoice_page.list.actions') as string,
+      headerName: t('document_page.list.actions') as string,
       renderCell: ({ row }: CellType) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('invoice_page.list.delete_invoice')}>
+          <Tooltip title={t('document_page.list.delete_invoice')}>
             <IconButton
               size='small'
               onClick={() => dispatch(deleteInvoice(row.id))}
@@ -195,8 +198,8 @@ const InvoiceList = () => {
               <Icon icon='mdi:delete-outline' fontSize={20} />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t('invoice_page.list.view')}>
-            <IconButton size='small' component={Link} href={getInvoicePreviewUrl(row.id)}>
+          <Tooltip title={t('document_page.list.view')}>
+            <IconButton size='small' component={Link} href={getDocumentPreviewUrl(row.id)}>
               <Icon icon='mdi:eye-outline' fontSize={20} />
             </IconButton>
           </Tooltip>
@@ -207,16 +210,16 @@ const InvoiceList = () => {
               menuProps={{ sx: { '& .MuiMenuItem-root svg': { mr: 2 } } }}
               options={[
                 {
-                  text: t('invoice_page.list.download'),
+                  text: t('document_page.list.download'),
                   icon: <Icon icon='mdi:download' fontSize={20} />
                 },
                 {
-                  text: t('invoice_page.list.edit'),
-                  href: getInvoiceEditUrl(row.id),
+                  text: t('document_page.list.edit'),
+                  href: getDocumentEditUrl(row.id),
                   icon: <Icon icon='mdi:pencil-outline' fontSize={20} />
                 },
                 {
-                  text: t('invoice_page.list.duplicate'),
+                  text: t('document_page.list.duplicate'),
                   icon: <Icon icon='mdi:content-copy' fontSize={20} />
                 }
               ]}
@@ -232,7 +235,7 @@ const InvoiceList = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <CardHeader title={t('create documentary')} />
+            <CardHeader title={t('create document')} />
             <CardContent>
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={6}>

@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 
 // ** Demo Components Imports
-import Edit from 'src/views/apps/invoice/edit/Edit'
+import Edit from 'src/views/apps/document/edit/Edit'
 
 // ** Styled Component
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'

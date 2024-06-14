@@ -4,5 +4,6 @@ export * from './dashboards'
 export * from './invoice'
 export * from './organization'
 export * from './document'
+export * from './version'
 
 // export * from './document'

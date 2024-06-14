@@ -1,36 +1,62 @@
 // ** MUI Imports
+import { useEffect, useState, useContext } from 'react'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
-import Table from '@mui/material/Table'
+
+//import Table from '@mui/material/Table'
 import Divider from '@mui/material/Divider'
-import TableRow from '@mui/material/TableRow'
-import TableHead from '@mui/material/TableHead'
-import TableBody from '@mui/material/TableBody'
+
+// import TableRow from '@mui/material/TableRow'
+// import TableHead from '@mui/material/TableHead'
+// import TableBody from '@mui/material/TableBody'
 import Typography from '@mui/material/Typography'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import CardContent from '@mui/material/CardContent'
-import { styled, useTheme } from '@mui/material/styles'
-import TableContainer from '@mui/material/TableContainer'
-import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
+
+//import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
+
+// import TableContainer from '@mui/material/TableContainer'
+// import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
+import IconButton from '@mui/material/IconButton'
+import { GridColDef, DataGrid } from '@mui/x-data-grid'
+import Icon from 'src/@core/components/icon'
+import Link from 'next/link'
+import { AbilityContext } from 'src/layouts/components/acl/Can'
+import OptionsMenu from 'src/@core/components/option-menu'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'src/store'
+import { deleteVersion, fetchVersions } from 'src/store/apps/version'
 
 // ** Configs
 //import themeConfig from 'src/configs/themeConfig'
 
 // ** Types
 import { DocumentResponseDto } from 'src/__generated__/AccountifyAPI'
+import { VersionResponseDto } from 'src/__generated__/AccountifyAPI'
 
 // ** Third Parties Imports
 import { format } from 'date-fns'
 
 // ** Utils Imports
-//import { formatInvoiceCurrency } from 'src/utils/invoice'
+import { getVersionEditUrl } from 'src/utils/router/version'
 
 // ** Hooks Imports
 import { useTranslation } from 'react-i18next'
+import Tooltip from '@mui/material/Tooltip'
 
 interface Props {
   data: DocumentResponseDto //InvoiceResponseDto
 }
+interface CellType {
+  row: VersionResponseDto
+}
+
+const LinkStyled = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.primary.main
+}))
 
 // const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
 //   borderBottom: 0,
@@ -53,8 +79,119 @@ const PreviewCard = ({ data }: Props) => {
   // ** Hook
   //const theme = useTheme()
   const { t } = useTranslation()
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
-  //console.log(data)
+  //const [selectedRows, setSelectedRows] = useState<GridRowId[]>([])
+  const ability = useContext(AbilityContext)
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  // const invoiceStore = useSelector((state: RootState) => state.invoice)
+  const versionStore = useSelector((state: RootState) => state.version)
+
+  useEffect(() => {
+    dispatch(fetchVersions(data.document_id))
+  }, [dispatch, data.document_id])
+
+  const defaultColumns: GridColDef[] = [
+    {
+      flex: 0.1,
+      field: 'id',
+      minWidth: 50,
+      headerName: 'id',
+      renderCell: ({ row }: CellType) => <LinkStyled href={getVersionEditUrl(row.id)}>{row.id}</LinkStyled>
+    },
+    {
+      flex: 0.2,
+      field: 'document_name',
+      minWidth: 50,
+      headerName: t('document_page.list.name') as string,
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography noWrap variant='body2' sx={{ color: 'text.primary', fontWeight: 600 }}>
+                {row.versionName}
+              </Typography>
+            </Box>
+          </Box>
+        )
+      }
+    },
+    {
+      flex: 0.2,
+      minWidth: 125,
+      field: 'createdAt',
+      headerName: t('document_page.list.date') as string,
+      renderCell: ({ row }: CellType) => (
+        <Typography variant='body2'>
+          {format(row.createdAt ? new Date(row.createdAt) : new Date(), 'dd/MM/yyyy')}
+        </Typography>
+      )
+    },
+    {
+      flex: 0.2,
+      minWidth: 125,
+      field: 'downloadNumber',
+      headerName: 'Downloaded',
+      renderCell: ({ row }: CellType) => (
+        <Typography variant='body2'>{row.downloadNumber ? row.downloadNumber : 0}</Typography>
+      )
+    }
+  ]
+
+  const columns: GridColDef[] = [
+    ...defaultColumns,
+    {
+      flex: 0.1,
+      minWidth: 130,
+      sortable: false,
+      field: 'actions',
+      headerName: t('document_page.list.actions') as string,
+      renderCell: ({ row }: CellType) => (
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip title={t('document_page.list.delete_invoice')}>
+            <IconButton
+              size='small'
+              onClick={() => dispatch(deleteVersion({ id: row.id, documentId: data.document_id }))}
+              disabled={!ability?.can('delete', 'invoice')}
+            >
+              <Icon icon='mdi:delete-outline' fontSize={20} />
+            </IconButton>
+          </Tooltip>
+          {/* <Tooltip title={t('document_page.list.view')}>
+            <IconButton size='small' component={Link} href={getVersionEditUrl(row.id)}>
+              <Icon icon='mdi:eye-outline' fontSize={20} />
+            </IconButton>
+          </Tooltip> */}
+          {ability?.can('update', 'invoice') && (
+            <OptionsMenu
+              iconProps={{ fontSize: 20 }}
+              iconButtonProps={{ size: 'small' }}
+              menuProps={{ sx: { '& .MuiMenuItem-root svg': { mr: 2 } } }}
+              options={[
+                {
+                  text: t('document_page.list.download'),
+                  href: `${row.url}`,
+                  icon: <Icon icon='mdi:download' fontSize={20} />
+                },
+                {
+                  text: t('document_page.list.edit'),
+                  href: getVersionEditUrl(row.id),
+                  icon: <Icon icon='mdi:pencil-outline' fontSize={20} />
+                }
+
+                // {
+                //   text: t('document_page.list.duplicate'),
+                //   icon: <Icon icon='mdi:content-copy' fontSize={20} />
+                // }
+              ]}
+            />
+          )}
+        </Box>
+      )
+    }
+  ]
 
   if (data) {
     return (
@@ -192,7 +329,7 @@ const PreviewCard = ({ data }: Props) => {
                 {/* {t('document_page.preview.name')}: */} Latest Version:
               </Typography>
               <Typography variant='body2' sx={{ mb: 2 }}>
-                Click to download: {data.url ? data.url : ''}
+                Click to download: <Link href={data.url ? data.url : ''}>Download</Link>
               </Typography>
             </Grid>
           </Grid>
@@ -274,6 +411,22 @@ const PreviewCard = ({ data }: Props) => {
           <Typography variant='body2'>
             <strong>{t('document_page.preview.note')}:</strong> {data.note ? data.note : 'No note'}
           </Typography>
+        </CardContent>
+
+        <CardContent>
+          <DataGrid
+            autoHeight
+            pagination
+            rows={versionStore.data}
+            columns={columns}
+            checkboxSelection
+            disableRowSelectionOnClick
+            pageSizeOptions={[10, 25, 50]}
+            paginationModel={paginationModel}
+            onPaginationModelChange={setPaginationModel}
+
+            //onRowSelectionModelChange={rows => setSelectedRows(rows)}
+          />
         </CardContent>
       </Card>
     )

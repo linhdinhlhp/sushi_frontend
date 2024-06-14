@@ -264,6 +264,8 @@ export interface DocumentResponseDto {
   document_id: string;
   /** @example "abcxyz.txt" */
   document_name: string;
+  /** @example "linkexample" */
+  url: string;
   /** @example "ghi chu cho document" */
   note: string;
   /** @example "abcxyz.txt" */
@@ -299,6 +301,8 @@ export interface UpdateDocumentRequestDto {
   document_name?: string;
   /** @example "Pay monthly internet bill" */
   note?: string;
+  /** @example "Pay monthly internet bill" */
+  url?: string;
   /**
    * @format date-time
    * @example "2024-02-26T07:31:35.000Z"
@@ -403,6 +407,67 @@ export interface UpdateInvoiceRequestDto {
   /** @example "vnd" */
   currency?: CurrencyType;
   items: UpdateInvoiceItemRequest[];
+}
+
+export interface VersionResponseDto {
+  /** @example 1 */
+  id: number;
+  /** @example "ABC123" */
+  versionId: string;
+  /** @example "ABC123" */
+  documentId: string;
+  /** @example "abcxyz.txt" */
+  versionName: string;
+  /** @example "ghi chu cho document" */
+  note: string;
+  /** @example "" */
+  downloadNumber: number;
+  /** @example "link cloudinary" */
+  url: string;
+  /** @example "xlsx,pptx,.." */
+  type: string;
+  /** @example "ten nguoi" */
+  created_by: string;
+  /**
+   * @format date-time
+   * @example "2024-02-26T07:31:35.000Z"
+   */
+  createdAt: string;
+}
+
+export interface VersionResponseListDto {
+  versions: VersionResponseDto[];
+  metadata: MetaData;
+}
+
+export interface CreateVersionRequestDto {
+  /** @example "phieu giao nhiem vu" */
+  versionName: string;
+  /** @example "Link file" */
+  url?: string;
+  /** @example "xlsx,docx,..." */
+  type?: string;
+  /** @example "xlsx,docx,..." */
+  created_by?: string;
+  /**
+   * @format date-time
+   * @example "2024-02-26T07:31:35.000Z"
+   */
+  createdAt: string;
+  /** @example "Pay monthly internet bill" */
+  note?: string;
+}
+
+export interface UpdateVerionRequestDto {
+  /** @example "phieu giao nhiem vu" */
+  versionName?: string;
+  /** @example "Pay monthly internet bill" */
+  note?: string;
+  /**
+   * @format date-time
+   * @example "2024-02-26T07:31:35.000Z"
+   */
+  createdAt?: string;
 }
 
 /** @example "create" */
@@ -1079,6 +1144,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Delete a document for an organization
+     *
+     * @tags Organization Document
+     * @name DeleteADocumentForAnOrganization
+     * @summary Delete a document for an organization
+     * @request DELETE:/internal/api/v1/organizations/{organizationId}/documents/{id}
+     * @secure
+     */
+    deleteADocumentForAnOrganization: (organizationId: number, id: number, params: RequestParams = {}) =>
+      this.request<EmptyResponseDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/documents/${id}`,
+        method: "DELETE",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Create invoices for an organization
      *
      * @tags Organization Invoice
@@ -1192,15 +1275,128 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: "json",
         ...params,
       }),
+
+    /**
+     * @description Get version list for document
+     *
+     * @tags Document Version
+     * @name GetVersionListForDocument
+     * @summary Get version list for document
+     * @request GET:/internal/api/v1/organizations/{organizationId}/versions/{documentId}
+     * @secure
+     */
+    getVersionListForDocument: (organizationId: number, documentId: string, params: RequestParams = {}) =>
+      this.request<VersionResponseListDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/versions/${documentId}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Create Documents for an organization
+     *
+     * @tags Document Version
+     * @name CreateDocumentsForAnOrganization2
+     * @summary Create Documents for an organization
+     * @request POST:/internal/api/v1/organizations/{organizationId}/versions/{documentId}
+     * @originalName createDocumentsForAnOrganization
+     * @duplicate
+     * @secure
+     */
+    createDocumentsForAnOrganization2: (
+      organizationId: number,
+      documentId: string,
+      data: CreateVersionRequestDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<VersionResponseListDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/versions/${documentId}`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Get version id for document
+     *
+     * @tags Document Version
+     * @name GetVersionByIdForDocument
+     * @summary Get version by id for document
+     * @request GET:/internal/api/v1/organizations/{organizationId}/versions/{documentId}/{id}
+     * @secure
+     */
+    getVersionByIdForDocument: (organizationId: number, documentId: string, id: number, params: RequestParams = {}) =>
+      this.request<VersionResponseDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/versions/${documentId}/${id}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Update an document for an organization
+     *
+     * @tags Document Version
+     * @name UpdateAnDocumentForAnOrganization2
+     * @summary Update an document for an organization
+     * @request PATCH:/internal/api/v1/organizations/{organizationId}/versions/{documentId}/{id}
+     * @originalName updateAnDocumentForAnOrganization
+     * @duplicate
+     * @secure
+     */
+    updateAnDocumentForAnOrganization2: (
+      organizationId: number,
+      documentId: string,
+      id: number,
+      data: UpdateVerionRequestDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<VersionResponseDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/versions/${documentId}/${id}`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Delete a document for an organization
+     *
+     * @tags Document Version
+     * @name DeleteADocumentForAnOrganization2
+     * @summary Delete a document for an organization
+     * @request DELETE:/internal/api/v1/organizations/{organizationId}/versions/{id}
+     * @originalName deleteADocumentForAnOrganization
+     * @duplicate
+     * @secure
+     */
+    deleteADocumentForAnOrganization2: (id: number, organizationId: string, params: RequestParams = {}) =>
+      this.request<EmptyResponseDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/versions/${id}`,
+        method: "DELETE",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
   };
   email = {
     /**
-     * No description
+     * @description Send email of anoucements for users
      *
-     * @name EmailControllerSendEmail
+     * @tags Send email
+     * @name SendEmailOfAnoucementsForUsers
+     * @summary Send email of anoucements for users
      * @request POST:/email/send-email
      */
-    emailControllerSendEmail: (params: RequestParams = {}) =>
+    sendEmailOfAnoucementsForUsers: (params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/email/send-email`,
         method: "POST",
@@ -1258,19 +1454,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     uploadControllerUploadSingleImageFromLocal: (params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/upload/single-file-from-local`,
-        method: "POST",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @name UploadControllerUploadImageFromLocalFiles
-     * @request POST:/upload/image-from-local-files
-     */
-    uploadControllerUploadImageFromLocalFiles: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/upload/image-from-local-files`,
         method: "POST",
         ...params,
       }),

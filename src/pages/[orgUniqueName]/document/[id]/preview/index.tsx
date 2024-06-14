@@ -14,7 +14,7 @@ const InvoicePreview = () => {
 
 InvoicePreview.acl = {
   action: 'read',
-  subject: 'invoice'
+  subject: 'document'
 }
 
 export default InvoicePreview

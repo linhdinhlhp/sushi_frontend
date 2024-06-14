@@ -119,6 +119,31 @@ export const updateDocument = createAsyncThunk(
   }
 )
 
+export const deleteDocument = createAsyncThunk(
+  'appDocuments/deleteDocument',
+  async (documentId: number, { dispatch }: Redux) => {
+    const organizationId = getOrgId()
+    const storedToken = getAccessToken()
+
+    try {
+      const response = await new Api({
+        baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
+        timeout: 30 * 1000, // 30 seconds
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        }
+      }).internal.deleteADocumentForAnOrganization(organizationId, documentId)
+
+      dispatch(fetchDocuments())
+      toast.success('Delete document succeed')
+
+      return response.data
+    } catch (error: any) {
+      toast.error(error.message)
+    }
+  }
+)
+
 export const appDocumentsSlice = createSlice({
   name: 'appDocuments',
   initialState: {

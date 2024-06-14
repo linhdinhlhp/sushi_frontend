@@ -16,16 +16,20 @@ import { fetchAnDocument } from 'src/store/apps/document'
 
 // ** Types Imports
 import { AppDispatch, RootState } from 'src/store'
-import { InvoiceResponseDto, DocumentResponseDto } from 'src/__generated__/AccountifyAPI'
+import { DocumentResponseDto } from 'src/__generated__/AccountifyAPI'
 
 // ** Components Imports
 import PreviewCard from 'src/views/apps/document/preview/PreviewCard'
 import PreviewActions from 'src/views/apps/document/preview/PreviewActions'
-import AddPaymentDrawer from 'src/views/apps/document/shared-drawer/AddPaymentDrawer'
-import SendInvoiceDrawer from 'src/views/apps/document/shared-drawer/SendInvoiceDrawer'
 
-// ** Utils Imports
+// import AddPaymentDrawer from 'src/views/apps/document/shared-drawer/AddPaymentDrawer'
+// import SendInvoiceDrawer from 'src/views/apps/document/shared-drawer/SendInvoiceDrawer'
+
+// // ** Utils Imports
+
 import { getInvoiceListUrl } from 'src/utils/router/invoice'
+
+// import { fetchVersions } from 'src/store/apps/version'
 
 export interface InvoicePreviewProps {
   id: string

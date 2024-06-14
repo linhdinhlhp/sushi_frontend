@@ -27,7 +27,9 @@ import { useTranslation } from 'react-i18next'
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteInvoice } from 'src/store/apps/invoice'
+
+// import { deleteInvoice } from 'src/store/apps/invoice'
+import { deleteDocument } from 'src/store/apps/document'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -192,7 +194,7 @@ const InvoiceList = () => {
           <Tooltip title={t('document_page.list.delete_invoice')}>
             <IconButton
               size='small'
-              onClick={() => dispatch(deleteInvoice(row.id))}
+              onClick={() => dispatch(deleteDocument(row.id))}
               disabled={!ability?.can('delete', 'invoice')}
             >
               <Icon icon='mdi:delete-outline' fontSize={20} />

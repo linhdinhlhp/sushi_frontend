@@ -145,6 +145,7 @@
     },
     "add": {
       "document": "Document",
+      "version": "Version",
       "date": "Date",
       "item": "Item",
       "type": "Type",
@@ -154,7 +155,8 @@
       "note": "Note",
       "price": "Price",
       "add_item": "Add Item",
-      "create_document": "Create Document"
+      "create_document": "Create Document",
+      "create_version": "Create Version"
     },
     "edit": {
       "document": "Document",

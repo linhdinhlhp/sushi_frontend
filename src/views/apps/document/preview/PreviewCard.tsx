@@ -119,7 +119,7 @@ const PreviewCard = ({ data }: Props) => {
       }
     },
     {
-      flex: 0.2,
+      flex: 0.1,
       minWidth: 125,
       field: 'createdAt',
       headerName: t('document_page.list.date') as string,
@@ -130,13 +130,20 @@ const PreviewCard = ({ data }: Props) => {
       )
     },
     {
-      flex: 0.2,
+      flex: 0.1,
       minWidth: 125,
       field: 'downloadNumber',
       headerName: 'Downloaded',
       renderCell: ({ row }: CellType) => (
         <Typography variant='body2'>{row.downloadNumber ? row.downloadNumber : 0}</Typography>
       )
+    },
+    {
+      flex: 0.2,
+      minWidth: 125,
+      field: 'note',
+      headerName: 'Note',
+      renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.note ? row.note : ''}</Typography>
     }
   ]
 
@@ -159,6 +166,13 @@ const PreviewCard = ({ data }: Props) => {
               <Icon icon='mdi:delete-outline' fontSize={20} />
             </IconButton>
           </Tooltip>
+          <Tooltip title={t('document_page.list.delete_invoice')}>
+            <IconButton size='small'>
+              <Link href={row.url}>
+                <Icon icon='mdi:download' fontSize={20} />
+              </Link>
+            </IconButton>
+          </Tooltip>
           {/* <Tooltip title={t('document_page.list.view')}>
             <IconButton size='small' component={Link} href={getVersionEditUrl(row.id)}>
               <Icon icon='mdi:eye-outline' fontSize={20} />
@@ -170,11 +184,6 @@ const PreviewCard = ({ data }: Props) => {
               iconButtonProps={{ size: 'small' }}
               menuProps={{ sx: { '& .MuiMenuItem-root svg': { mr: 2 } } }}
               options={[
-                {
-                  text: t('document_page.list.download'),
-                  href: `${row.url}`,
-                  icon: <Icon icon='mdi:download' fontSize={20} />
-                },
                 {
                   text: t('document_page.list.edit'),
                   href: getVersionEditUrl(row.id),

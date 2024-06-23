@@ -120,6 +120,8 @@ const UserAclGuard = (props: AclGuardProps) => {
     if (router.route === '/') {
       return <Spinner />
     }
+    console.log(session.data.user.id)
+    console.log(session.data)
 
     return <AbilityContext.Provider value={ability}>{children}</AbilityContext.Provider>
   }

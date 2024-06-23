@@ -409,6 +409,62 @@ export interface UpdateInvoiceRequestDto {
   items: UpdateInvoiceItemRequest[];
 }
 
+export interface SubscriptionsResponseDto {
+  /** @example 1 */
+  id: number;
+  /** @example "123" */
+  documentId: number;
+  /** @example "123" */
+  userId: number;
+  /** @example "true/false" */
+  bySMS: boolean;
+  /** @example "true/false" */
+  byEmail: boolean;
+  /** @example "fake@gmail.com" */
+  email: string;
+  /** @example "123456789" */
+  phone: string;
+  /**
+   * @format date-time
+   * @example "2024-02-26T07:31:35.000Z"
+   */
+  createdAt: string;
+}
+
+export interface SubscriptionsResponseListDto {
+  subscriptions: SubscriptionsResponseDto[];
+  metadata: MetaData;
+}
+
+export interface CreateSubscriptionsRequestDto {
+  /** @example "0/1" */
+  byEmail: boolean;
+  /** @example "0/1" */
+  bySMS: boolean;
+  /** @example "0123456789" */
+  phone: string;
+  /** @example "fake@mail.com" */
+  email: string;
+}
+
+export interface UpdateSubscriptionsRequestDto {
+  /** @example "12" */
+  documentId: number;
+  /** @example "0/1" */
+  byEmail: boolean;
+  /** @example "0/1" */
+  bySMS: boolean;
+  /** @example "0123456789" */
+  phone: string;
+  /** @example "fake@mail.com" */
+  email: string;
+  /**
+   * @format date-time
+   * @example "2024-02-26T07:31:35.000Z"
+   */
+  createdAt: string;
+}
+
 export interface VersionResponseDto {
   /** @example 1 */
   id: number;
@@ -1277,6 +1333,97 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Get all subs by a document for an org
+     *
+     * @tags Organization Document Subscription
+     * @name GetAllSubsByADocumentForAnOrg
+     * @summary Get all subs by a document for an org
+     * @request GET:/internal/api/v1/organizations/{organizationId}/subcriptions/{documentId}
+     * @secure
+     */
+    getAllSubsByADocumentForAnOrg: (organizationId: number, documentId: number, params: RequestParams = {}) =>
+      this.request<SubscriptionsResponseListDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/subcriptions/${documentId}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Create a sub of a document for an org
+     *
+     * @tags Organization Document Subscription
+     * @name CreateASubOfADocumentForAnOrg
+     * @summary Create a sub of a document for an org
+     * @request POST:/internal/api/v1/organizations/{organizationId}/subcriptions/{documentId}
+     * @secure
+     */
+    createASubOfADocumentForAnOrg: (
+      organizationId: number,
+      documentId: number,
+      data: CreateSubscriptionsRequestDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<SubscriptionsResponseListDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/subcriptions/${documentId}`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Update a sub of a document for an org
+     *
+     * @tags Organization Document Subscription
+     * @name UpdateASubOfADocumentForAnOrg
+     * @summary Update a sub of a document for an org
+     * @request PATCH:/internal/api/v1/organizations/{organizationId}/subcriptions/{subId}
+     * @secure
+     */
+    updateASubOfADocumentForAnOrg: (
+      organizationId: number,
+      subId: number,
+      data: UpdateSubscriptionsRequestDto,
+      params: RequestParams = {},
+    ) =>
+      this.request<SubscriptionsResponseDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/subcriptions/${subId}`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Get state of a sub by a document for a user of an org
+     *
+     * @tags Organization Document Subscription
+     * @name GetStateOfASubByADocumentForAUserOfAnOrg
+     * @summary Get state of a sub  by a document  for user of  an org
+     * @request GET:/internal/api/v1/organizations/{organizationId}/subcriptions/state/{documentId}/{userId}
+     * @secure
+     */
+    getStateOfASubByADocumentForAUserOfAnOrg: (
+      organizationId: number,
+      documentId: number,
+      userId: number,
+      params: RequestParams = {},
+    ) =>
+      this.request<SubscriptionsResponseDto, any>({
+        path: `/internal/api/v1/organizations/${organizationId}/subcriptions/state/${documentId}/${userId}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description Get version list for document
      *
      * @tags Document Version
@@ -1399,47 +1546,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     sendEmailOfAnoucementsForUsers: (params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/email/send-email`,
-        method: "POST",
-        ...params,
-      }),
-  };
-  sms = {
-    /**
-     * No description
-     *
-     * @name SendSmsControllerSendSms
-     * @request POST:/sms/send-sms
-     */
-    sendSmsControllerSendSms: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/sms/send-sms`,
-        method: "POST",
-        ...params,
-      }),
-  };
-  file = {
-    /**
-     * No description
-     *
-     * @name FileControllerGetFile
-     * @request GET:/file/download
-     */
-    fileControllerGetFile: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/file/download`,
-        method: "GET",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @name FileControllerUploadFile
-     * @request POST:/file/upload-file
-     */
-    fileControllerUploadFile: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/file/upload-file`,
         method: "POST",
         ...params,
       }),

@@ -26,7 +26,6 @@ import { useTranslation } from 'react-i18next'
 interface EditActionsProps {
   id: string | undefined
   onSubmit: () => void
-  toggleAddPaymentDrawer: () => void
 }
 
 const OptionsWrapper = styled(Box)<BoxProps>(() => ({
@@ -35,7 +34,7 @@ const OptionsWrapper = styled(Box)<BoxProps>(() => ({
   justifyContent: 'space-between'
 }))
 
-const EditActions = ({ id, onSubmit, toggleAddPaymentDrawer }: EditActionsProps) => {
+const EditActions = ({ id, onSubmit }: EditActionsProps) => {
   // ** Hook
   const { t } = useTranslation()
 
@@ -65,15 +64,6 @@ const EditActions = ({ id, onSubmit, toggleAddPaymentDrawer }: EditActionsProps)
             </Button>
             <Button fullWidth color='secondary' variant='outlined' sx={{ mb: 3.5 }}>
               Save
-            </Button>
-            <Button
-              fullWidth
-              color='success'
-              variant='contained'
-              onClick={toggleAddPaymentDrawer}
-              startIcon={<Icon icon='mdi:currency-usd' />}
-            >
-              Add Payment
             </Button>
           </CardContent>
         </Card>

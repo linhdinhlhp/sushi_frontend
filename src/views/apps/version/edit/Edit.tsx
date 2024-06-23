@@ -8,22 +8,26 @@ import { useRouter } from 'next/router'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+
+import Icon from 'src/@core/components/icon'
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
-import { fetchAnInvoice, updateInvoice } from 'src/store/apps/invoice'
+import { fetchAnDocument, updateDocument } from 'src/store/apps/document'
+import { fetchAVersion, updateVersion } from 'src/store/apps/version'
+import { getDocumentListUrl } from 'src/utils/router'
 
 // ** Types Imports
 import { AppDispatch, RootState } from 'src/store'
 import {
-  CurrencyType,
   DocumentResponseDto,
-  InvoiceResponseDto,
   UpdateDocumentRequestDto,
   UpdateInvoiceItemRequest,
-  UpdateInvoiceRequestDto
+  VersionResponseDto,
+  UpdateVerionRequestDto
 } from 'src/__generated__/AccountifyAPI'
 
 // ** Components Imports
@@ -38,76 +42,79 @@ import { getInvoiceListUrl, getInvoicePreviewUrl } from 'src/utils/router/invoic
 // ** Third Party Imports
 import { format } from 'date-fns'
 import toast from 'react-hot-toast'
-import { fetchAnDocument, updateDocument } from 'src/store/apps/document'
-import { getDocumentListUrl } from 'src/utils/router'
+import { Divider } from '@mui/material'
 
 export interface InvoiceEditProps {
   id: string
 }
 
-export type UpdateInvoiceFormData = UpdateInvoiceItemRequest & { id: number; index: number }
+//export type UpdateInvoiceFormData = UpdateInvoiceItemRequest & { id: number; index: number }
 
 const InvoiceEdit = ({ id }: InvoiceEditProps) => {
   // ** Store
   const dispatch = useDispatch<AppDispatch>()
-  const documentStore = useSelector((state: RootState) => state.document)
+  const versionStore = useSelector((state: RootState) => state.version)
   const router = useRouter()
 
   useEffect(() => {
-    dispatch(fetchAnDocument(parseInt(id!)))
+    dispatch(fetchAVersion({ id: parseInt(id!), documentId: 'a' }))
   }, [dispatch, id])
 
   // ** States
   const [date, setDate] = useState<Date>(
-    (documentStore.document as DocumentResponseDto).createdAt
-      ? new Date((documentStore.document as DocumentResponseDto).createdAt)
+    (versionStore.version as VersionResponseDto).createdAt
+      ? new Date((versionStore.version as VersionResponseDto).createdAt)
       : new Date()
   )
-  const [documentName, setDocumentName] = useState<string>(
-    (documentStore.document as DocumentResponseDto).document_name
-  )
-  const [documentNote, setDocumentNote] = useState<string>((documentStore.document as DocumentResponseDto).note)
+  const [versionName, setVersionName] = useState<string>((versionStore.version as VersionResponseDto).versionName)
+  const [versionNote, setVersionNote] = useState<string>((versionStore.version as VersionResponseDto).note)
 
-  const [addPaymentOpen, setAddPaymentOpen] = useState<boolean>(false)
-  const [sendInvoiceOpen, setSendInvoiceOpen] = useState<boolean>(false)
+  // const [addPaymentOpen, setAddPaymentOpen] = useState<boolean>(false)
+  // const [sendInvoiceOpen, setSendInvoiceOpen] = useState<boolean>(false)
 
-  const toggleSendInvoiceDrawer = () => setSendInvoiceOpen(!sendInvoiceOpen)
-  const toggleAddPaymentDrawer = () => setAddPaymentOpen(!addPaymentOpen)
+  // const toggleSendInvoiceDrawer = () => setSendInvoiceOpen(!sendInvoiceOpen)
+  // const toggleAddPaymentDrawer = () => setAddPaymentOpen(!addPaymentOpen)
 
   const onSubmit = () => {
     // Update invoice api call
-    const updateDocumentRequest: UpdateDocumentRequestDto = {
+    const updateVersionRequest: UpdateVerionRequestDto = {
       createdAt: format(date as Date, 'yyyy-MM-dd'),
-      document_name: documentName,
-      note: documentNote
+      versionName: versionName,
+      note: versionNote
     }
 
     // Call api
-    dispatch(updateDocument({ ...updateDocumentRequest, documentId: parseInt(id!) }))
+    dispatch(updateVersion({ ...updateVersionRequest, id: parseInt(id!), documentId: 'a' }))
     router.replace(getDocumentListUrl())
   }
 
-  if (documentStore.document) {
+  if (versionStore.version) {
     return (
       <>
         <Grid container spacing={6}>
           <Grid item xl={9} md={8} xs={12}>
             <EditCard
-              data={documentStore.document as DocumentResponseDto}
+              data={versionStore.version as VersionResponseDto}
               date={date}
               setDate={setDate}
-              documentName={documentName}
-              setDocumentName={setDocumentName}
-              documentNote={documentNote}
-              setDocumentNote={setDocumentNote}
+              versionName={versionName}
+              setVersionName={setVersionName}
+              versionNote={versionNote}
+              setVersionNote={setVersionNote}
             />
-          </Grid>
-          <Grid item xl={3} md={4} xs={12}>
-            <EditActions id={id} onSubmit={onSubmit} toggleAddPaymentDrawer={toggleAddPaymentDrawer} />
+            <Button
+              fullWidth
+              sx={{ mb: 3.5 }}
+              variant='contained'
+              startIcon={<Icon icon='mdi:send-outline' />}
+              onClick={onSubmit}
+            >
+              Update
+            </Button>
           </Grid>
         </Grid>
-        <SendInvoiceDrawer open={sendInvoiceOpen} toggle={toggleSendInvoiceDrawer} />
-        <AddPaymentDrawer open={addPaymentOpen} toggle={toggleAddPaymentDrawer} />
+        {/* <SendInvoiceDrawer open={sendInvoiceOpen} toggle={toggleSendInvoiceDrawer} />
+        <AddPaymentDrawer open={addPaymentOpen} toggle={toggleAddPaymentDrawer} /> */}
       </>
     )
   } else {

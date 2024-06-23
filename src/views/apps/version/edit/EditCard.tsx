@@ -28,20 +28,21 @@ import { useTranslation } from 'react-i18next'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Types Imports
-import { CurrencyType, DocumentResponseDto, InvoiceResponseDto, InvoiceType } from 'src/__generated__/AccountifyAPI'
-import { UpdateInvoiceFormData } from './Edit'
+import { VersionResponseDto, InvoiceResponseDto } from 'src/__generated__/AccountifyAPI'
+
+//import { UpdateInvoiceFormData } from './Edit'
 
 // ** Custom Component Imports
 import Repeater from 'src/@core/components/repeater'
 
-const initialFormData = {
-  index: 0,
-  name: '',
-  note: '',
-  type: InvoiceType.EXPENSE,
-  price: 0,
-  quantity: 0
-}
+// const initialFormData = {
+//   index: 0,
+//   name: '',
+//   note: '',
+//   type: InvoiceType.EXPENSE,
+//   price: 0,
+//   quantity: 0
+// }
 
 interface PickerProps {
   label?: string
@@ -51,69 +52,61 @@ const CustomInput = forwardRef(({ ...props }: PickerProps, ref: ForwardedRef<HTM
   return <TextField size='small' inputRef={ref} {...props} sx={{ width: { sm: '250px', xs: '170px' } }} />
 })
 
-const RepeatingContent = styled(Grid)<GridProps>(({ theme }) => ({
-  paddingRight: 0,
-  display: 'flex',
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  border: `1px solid ${theme.palette.divider}`,
-  '& .col-title': {
-    top: '-1.5rem',
-    position: 'absolute'
-  },
-  [theme.breakpoints.down('lg')]: {
-    '& .col-title': {
-      top: '0',
-      position: 'relative'
-    }
-  }
-}))
+// const RepeatingContent = styled(Grid)<GridProps>(({ theme }) => ({
+//   paddingRight: 0,
+//   display: 'flex',
+//   position: 'relative',
+//   borderRadius: theme.shape.borderRadius,
+//   border: `1px solid ${theme.palette.divider}`,
+//   '& .col-title': {
+//     top: '-1.5rem',
+//     position: 'absolute'
+//   },
+//   [theme.breakpoints.down('lg')]: {
+//     '& .col-title': {
+//       top: '0',
+//       position: 'relative'
+//     }
+//   }
+// }))
 
-const RepeaterWrapper = styled(CardContent)<CardContentProps>(({ theme }) => ({
-  paddingTop: theme.spacing(12),
-  paddingBottom: theme.spacing(12),
-  '& .repeater-wrapper + .repeater-wrapper': {
-    marginTop: theme.spacing(12)
-  }
-}))
+// const RepeaterWrapper = styled(CardContent)<CardContentProps>(({ theme }) => ({
+//   paddingTop: theme.spacing(12),
+//   paddingBottom: theme.spacing(12),
+//   '& .repeater-wrapper + .repeater-wrapper': {
+//     marginTop: theme.spacing(12)
+//   }
+// }))
 
-const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  padding: theme.spacing(2, 0),
-  borderLeft: `1px solid ${theme.palette.divider}`
-}))
+// const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
+//   display: 'flex',
+//   flexDirection: 'column',
+//   justifyContent: 'flex-start',
+//   padding: theme.spacing(2, 0),
+//   borderLeft: `1px solid ${theme.palette.divider}`
+// }))
 
 export interface EditCardProps {
-  data: DocumentResponseDto
+  data: VersionResponseDto
   date: Date
   setDate: (value: Date) => void
-  documentName: string
-  setDocumentName: (value: string) => void
-  documentNote: string
-  setDocumentNote: (value: string) => void
+  versionName: string
+  setVersionName: (value: string) => void
+  versionNote: string
+  setVersionNote: (value: string) => void
 }
 
-const EditCard = ({
-  data,
-  date,
-  setDate,
-  documentName,
-  setDocumentName,
-  documentNote,
-  setDocumentNote
-}: EditCardProps) => {
+const EditCard = ({ data, date, setDate, versionName, setVersionName, versionNote, setVersionNote }: EditCardProps) => {
   // ** Hook
   const { t } = useTranslation()
 
   useEffect(() => {
     if (data) {
       setDate(new Date(data.createdAt ? data.createdAt : new Date()))
-      setDocumentName(data.document_name)
-      setDocumentNote(data.note)
+      setVersionName(data.versionName)
+      setVersionNote(data.note)
     }
-  }, [data, setDate, setDocumentName, setDocumentNote])
+  }, [data, setDate, setVersionName, setVersionNote])
 
   // ** Hook
   const theme = useTheme()
@@ -207,37 +200,15 @@ const EditCard = ({
                   <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
                     {t('document_page.add.name')}:
                   </Typography>
-                  {/* <DatePicker
-                  id='issue-date'
-                  selected={date}
-                  customInput={<CustomInput />}
-                  onChange={(date: Date) => setDate(date)}
-                /> */}
-                  {/* <input
-                  type='text'
-                  min={2}
-                  max={50}
-                  className='border-2 mb-2 border-gray-500  focus-visible:border-0 focus-visible:outline-2  rounded-md px-3 py-2 w-full'
-                  name='name'
-                  id='text'
-                  required
-                /> */}
                   <TextField
                     size='small'
                     type='text'
                     placeholder='Input data'
-                    value={documentName}
-                    onChange={e => setDocumentName(e.target.value)}
+                    value={versionName}
+                    onChange={e => setVersionName(e.target.value)}
                     sx={{ width: { sm: '250px', xs: '170px' } }}
                   />
                 </Box>
-                {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
-                <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('document_page.add.date')}: */}
-                {/* Tên phiên bản :
-                </Typography>
-                <TextField size='small' type='text' placeholder='Input data' />
-              </Box> */}
                 <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                   <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
                     {t('document_page.add.date')}:
@@ -249,24 +220,6 @@ const EditCard = ({
                     onChange={(date: Date) => setDate(date)}
                   />
                 </Box>
-                {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
-                <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('document_page.add.currency')}: */}
-                {/* Loại file : */}
-                {/* </Typography>
-                <Select size='small' value={currency} onChange={e => setCurrency(e.target.value as CurrencyType)}>
-                  <MenuItem value={CurrencyType.VND}>docx</MenuItem>
-                  <MenuItem value={CurrencyType.USD}>xlsx</MenuItem>
-                  <MenuItem value={CurrencyType.USD}>pptx</MenuItem>
-                </Select>
-              </Box> */}
-                {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
-                <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
-                  {/* {t('document_page.add.currency')}: */}
-                {/* Chon file:
-                </Typography>
-                <TextField type='file' onChange={handleAddFile} inputProps={{ accept: '.docx,.pptx,.xlsx' }} />
-              </Box> */}
                 <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                   <Typography variant='body2' sx={{ mr: 3, width: '125px' }}>
                     {t('document_page.add.note')}:
@@ -276,8 +229,8 @@ const EditCard = ({
                     multiline
                     label='Note'
                     id='textarea-outlined-static'
-                    value={documentNote}
-                    onChange={e => setDocumentNote(e.target.value)}
+                    value={versionNote}
+                    onChange={e => setVersionNote(e.target.value)}
                     sx={{ width: { sm: '250px', xs: '170px' } }}
                   />
                 </Box>

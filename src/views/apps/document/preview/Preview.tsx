@@ -62,7 +62,7 @@ const InvoicePreview = ({ id }: InvoicePreviewProps) => {
           </Grid>
           <Grid item xl={3} md={4} xs={12}>
             <PreviewActions
-              id={id}
+              documentId={id}
 
               // toggleAddPaymentDrawer={toggleAddPaymentDrawer}
               // toggleSendInvoiceDrawer={toggleSendInvoiceDrawer}

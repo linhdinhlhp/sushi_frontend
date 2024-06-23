@@ -2,17 +2,25 @@
 import Link from 'next/link'
 
 // ** React Import
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import CardContent from '@mui/material/CardContent'
+import Checkbox from '@mui/material/Checkbox'
+import FormGroup from '@mui/material/FormGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 import { getDocumentAddVersionUrl } from 'src/utils/router'
+import { fetchASub } from 'src/store/apps/subscription'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from 'src/store'
+import { useSession } from 'next-auth/react'
+import { SubscriptionsResponseDto } from 'src/__generated__/AccountifyAPI'
 
 // ** Utils Imports
 //import { getInvoiceEditUrl, getInvoicePrintUrl } from 'src/utils/router/invoice'
@@ -24,56 +32,53 @@ import { getDocumentAddVersionUrl } from 'src/utils/router'
 //import { useTranslation } from 'react-i18next'
 
 export interface Props {
-  id: string
+  documentId: string
 }
 
-const PreviewActions = ({ id }: Props) => {
-  // ** Hooks
-  // const ability = useContext(AbilityContext)
-  // const { t } = useTranslation()
+const PreviewActions = ({ documentId }: Props) => {
+  const dispatch = useDispatch<AppDispatch>()
+  const session = useSession()
+
+  const [checkedMail, setCheckedMail] = useState<boolean>(false)
+  const [checkedSMS, setCheckedSMS] = useState<boolean>(false)
+
+  // console.log('linh dang tét ', session.data.user)
+
+  const subscriptionStore = useSelector(
+    (state: RootState) => state.subscription.subscription as SubscriptionsResponseDto
+  )
+
+  useEffect(() => {
+    dispatch(fetchASub({ documentId: parseInt(documentId), userId: 7 }))
+  }, [dispatch, documentId])
+
+  console.log('linh dang ', subscriptionStore)
+
+  useEffect(() => {
+    if (subscriptionStore) {
+      setCheckedMail(subscriptionStore.byEmail)
+      setCheckedSMS(subscriptionStore.bySMS)
+    } else {
+      setCheckedMail(false)
+      setCheckedSMS(false)
+    }
+  }, [subscriptionStore])
 
   return (
     <Card>
       <CardContent>
         <Button fullWidth sx={{ mb: 3.5 }} variant='contained' startIcon={<Icon icon='mdi:plus-circle' />}>
-          <Link style={{ textDecoration: 'none', color: 'white' }} href={getDocumentAddVersionUrl(id)}>
+          <Link style={{ textDecoration: 'none', color: 'white' }} href={getDocumentAddVersionUrl(documentId)}>
             Add document version
           </Link>
         </Button>
-        {/* <Button fullWidth sx={{ mb: 3.5 }} color='secondary' variant='outlined'>
-          {t('document_page.preview.download')}
+        <FormGroup>
+          <FormControlLabel control={<Checkbox defaultChecked />} label='Nhận thông báo quan SMS' />
+          <FormControlLabel control={<Checkbox />} label='Nhận thông báo qua email' />
+        </FormGroup>
+        <Button fullWidth color='success' variant='contained' startIcon={<Icon icon='mdi:mdi-send' />}>
+          Submit
         </Button>
-        <Button
-          fullWidth
-          target='_blank'
-          sx={{ mb: 3.5 }}
-          component={Link}
-          color='secondary'
-          variant='outlined'
-          href={getInvoicePrintUrl(id)}
-        >
-          {t('document_page.preview.print')}
-        </Button>
-        <Button
-          fullWidth
-          sx={{ mb: 3.5 }}
-          component={Link}
-          color='secondary'
-          variant='outlined'
-          href={getInvoiceEditUrl(id)}
-          disabled={!ability?.can('update', 'invoice')}
-        >
-          {t('document_page.preview.update_document')}
-        </Button>
-        <Button
-          fullWidth
-          color='success'
-          variant='contained'
-          onClick={toggleAddPaymentDrawer}
-          startIcon={<Icon icon='mdi:currency-usd' />}
-        >
-          Add Payment
-        </Button> */}
       </CardContent>
     </Card>
   )

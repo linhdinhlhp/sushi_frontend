@@ -77,7 +77,7 @@ export const fetchAVersion = createAsyncThunk(
   }
 )
 
-// ** Add Document
+// ** Add Document Version
 export const addVersion = createAsyncThunk(
   'appVersions/addVersion',
   async (data: CreateVersionRequestDto & { documentId: string }, { dispatch }: Redux) => {

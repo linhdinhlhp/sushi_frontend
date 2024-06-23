@@ -9,6 +9,7 @@ import invoice from 'src/store/apps/invoice'
 import version from 'src/store/apps/version'
 import permission from 'src/store/auth/permission'
 import profile from 'src/store/auth/profile'
+import subscription from 'src/store/apps/subscription'
 
 export const store = configureStore({
   reducer: {
@@ -18,7 +19,8 @@ export const store = configureStore({
     invoice,
     permission,
     profile,
-    version
+    version,
+    subscription
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -108,6 +108,7 @@ export const authOptions: NextAuthOptions = {
          * Logic for Credentials login
          */
         if (account.provider === 'credentials') {
+          token.id = user.userData.id
           token.name = user.userData.name
           token.email = user.userData.email
           token.phone = user.userData.phone
@@ -128,6 +129,7 @@ export const authOptions: NextAuthOptions = {
               timeout: 30 * 1000 // 30 seconds
             }).internal.loginWithGoogle({ email: user.email, name: user.name, avatar: user.image })
 
+            token.id = response.data.userData.id
             token.name = response.data.userData.name
             token.email = response.data.userData.email
             token.phone = response.data.userData.phone
@@ -154,6 +156,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token, trigger, newSession }: any) {
       if (session.user) {
         // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
+        session.user.id = token.id
         session.user.name = token.name
         session.user.email = token.email
         session.user.phone = token.phone

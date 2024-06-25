@@ -33,14 +33,23 @@ import { SubscriptionsResponseDto } from 'src/__generated__/AccountifyAPI'
 
 export interface Props {
   documentId: string
+  checkedMail: boolean
+  setCheckedMail: (boolean) => void
+  checkedSMS: boolean
+  setCheckedSMS: (boolean) => void
+  createSubscription: () => void
 }
 
-const PreviewActions = ({ documentId }: Props) => {
+const PreviewActions = ({
+  documentId,
+  checkedMail,
+  setCheckedMail,
+  checkedSMS,
+  setCheckedSMS,
+  createSubscription
+}: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const session = useSession()
-
-  const [checkedMail, setCheckedMail] = useState<boolean>(false)
-  const [checkedSMS, setCheckedSMS] = useState<boolean>(false)
 
   // console.log('linh dang tét ', session.data.user)
 
@@ -49,20 +58,8 @@ const PreviewActions = ({ documentId }: Props) => {
   )
 
   useEffect(() => {
-    dispatch(fetchASub({ documentId: parseInt(documentId), userId: 7 }))
-  }, [dispatch, documentId])
-
-  console.log('linh dang ', subscriptionStore)
-
-  useEffect(() => {
-    if (subscriptionStore) {
-      setCheckedMail(subscriptionStore.byEmail)
-      setCheckedSMS(subscriptionStore.bySMS)
-    } else {
-      setCheckedMail(false)
-      setCheckedSMS(false)
-    }
-  }, [subscriptionStore])
+    dispatch(fetchASub({ documentId: parseInt(documentId), userId: session.data?.user.id ?? 0 }))
+  }, [dispatch, documentId, session.data?.user.id])
 
   return (
     <Card>
@@ -73,10 +70,22 @@ const PreviewActions = ({ documentId }: Props) => {
           </Link>
         </Button>
         <FormGroup>
-          <FormControlLabel control={<Checkbox defaultChecked />} label='Nhận thông báo quan SMS' />
-          <FormControlLabel control={<Checkbox />} label='Nhận thông báo qua email' />
+          <FormControlLabel
+            control={<Checkbox onChange={() => setCheckedSMS(!checkedSMS)} checked={checkedSMS} />}
+            label='Nhận thông báo quan SMS'
+          />
+          <FormControlLabel
+            control={<Checkbox onChange={() => setCheckedMail(!checkedMail)} checked={checkedMail} />}
+            label='Nhận thông báo qua email'
+          />
         </FormGroup>
-        <Button fullWidth color='success' variant='contained' startIcon={<Icon icon='mdi:mdi-send' />}>
+        <Button
+          fullWidth
+          color='success'
+          variant='contained'
+          startIcon={<Icon icon='mdi:mdi-send' />}
+          onClick={() => createSubscription()}
+        >
           Submit
         </Button>
       </CardContent>

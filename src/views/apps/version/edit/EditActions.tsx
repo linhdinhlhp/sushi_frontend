@@ -50,7 +50,7 @@ const EditActions = ({ id, onSubmit }: EditActionsProps) => {
               startIcon={<Icon icon='mdi:send-outline' />}
               onClick={() => onSubmit()}
             >
-              {t('document_page.edit.update_invoice')}
+              {t('document_page.edit.update')}
             </Button>
             <Button
               fullWidth

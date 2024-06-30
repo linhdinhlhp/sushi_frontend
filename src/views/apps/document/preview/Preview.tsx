@@ -83,7 +83,7 @@ const InvoicePreview = ({ id }: InvoicePreviewProps) => {
   // }, [subscriptionStore])
 
   const createSubscription = async () => {
-    if (session.data?.user.phone && checkedSMS) {
+    if (!session.data?.user.phone && checkedSMS) {
       router.replace(`/${getOrgUniqueName()}/account-settings/account/`)
 
       return

@@ -51,78 +51,10 @@ const EditActions = ({ id, onSubmit, toggleAddPaymentDrawer }: EditActionsProps)
               startIcon={<Icon icon='mdi:send-outline' />}
               onClick={() => onSubmit()}
             >
-              {t('document_page.edit.update_invoice')}
-            </Button>
-            <Button
-              fullWidth
-              sx={{ mb: 3.5 }}
-              component={Link}
-              color='secondary'
-              variant='outlined'
-              href={getInvoicePreviewUrl(id)}
-            >
-              {t('document_page.edit.preview')}
-            </Button>
-            <Button fullWidth color='secondary' variant='outlined' sx={{ mb: 3.5 }}>
-              Save
-            </Button>
-            <Button
-              fullWidth
-              color='success'
-              variant='contained'
-              onClick={toggleAddPaymentDrawer}
-              startIcon={<Icon icon='mdi:currency-usd' />}
-            >
-              Add Payment
+              UPDATE DOCUMENT
             </Button>
           </CardContent>
         </Card>
-      </Grid>
-
-      <Grid item xs={12}>
-        <FormControl fullWidth>
-          <InputLabel id='payment-select'>Accept payments via</InputLabel>
-          <Select
-            fullWidth
-            defaultValue='Internet Banking'
-            label='Accept payments via'
-            labelId='payment-select'
-            sx={{ mb: 4 }}
-          >
-            <MenuItem value='Internet Banking'>Internet Banking</MenuItem>
-            <MenuItem value='Debit Card'>Debit Card</MenuItem>
-            <MenuItem value='Credit Card'>Credit Card</MenuItem>
-            <MenuItem value='Paypal'>Paypal</MenuItem>
-            <MenuItem value='UPI Transfer'>UPI Transfer</MenuItem>
-          </Select>
-        </FormControl>
-        <OptionsWrapper sx={{ mb: 1 }}>
-          <InputLabel
-            htmlFor='invoice-edit-payment-terms'
-            sx={{ cursor: 'pointer', fontSize: '0.875rem', color: 'text.secondary' }}
-          >
-            Payment Terms
-          </InputLabel>
-          <Switch defaultChecked id='invoice-edit-payment-terms' />
-        </OptionsWrapper>
-        <OptionsWrapper sx={{ mb: 1 }}>
-          <InputLabel
-            htmlFor='invoice-edit-client-notes'
-            sx={{ cursor: 'pointer', fontSize: '0.875rem', color: 'text.secondary' }}
-          >
-            Client Notes
-          </InputLabel>
-          <Switch id='invoice-edit-client-notes' />
-        </OptionsWrapper>
-        <OptionsWrapper>
-          <InputLabel
-            htmlFor='invoice-edit-payment-stub'
-            sx={{ cursor: 'pointer', fontSize: '0.875rem', color: 'text.secondary' }}
-          >
-            Payment Stub
-          </InputLabel>
-          <Switch id='invoice-edit-payment-stub' />
-        </OptionsWrapper>
       </Grid>
     </Grid>
   )

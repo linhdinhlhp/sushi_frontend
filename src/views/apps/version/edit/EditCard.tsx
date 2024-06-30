@@ -193,7 +193,7 @@ const EditCard = ({ data, date, setDate, versionName, setVersionName, versionNot
               >
                 <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                   <Typography variant='h6' sx={{ msScrollLimit: 2, width: '125px' }}>
-                    {t('document_page.add.document')}
+                    Version
                   </Typography>
                 </Box>
                 <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>

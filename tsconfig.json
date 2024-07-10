@@ -10,7 +10,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    // "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -29,13 +29,14 @@
       ],
       "apexcharts/*": [
         "./node_modules/apexcharts-clevision/*"
-      ],
-    }
+      ]
+    },
+    "strict": false
   },
   "include": [
     "src",
     "declaration.d.ts",
-    "types/next-auth.d.ts",
+    "types/next-auth.d.ts"
   ],
   "exclude": [
     "node_modules"

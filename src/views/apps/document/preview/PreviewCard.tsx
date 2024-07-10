@@ -157,15 +157,16 @@ const PreviewCard = ({ data }: Props) => {
       headerName: t('document_page.list.actions') as string,
       renderCell: ({ row }: CellType) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('document_page.list.delete_invoice')}>
-            <IconButton
-              size='small'
-              onClick={() => dispatch(deleteVersion({ id: row.id, documentId: data.document_id }))}
-              disabled={!ability?.can('delete', 'invoice')}
-            >
-              <Icon icon='mdi:delete-outline' fontSize={20} />
-            </IconButton>
-          </Tooltip>
+          {ability?.can('delete', 'invoice') && (
+            <Tooltip title={t('document_page.list.delete_invoice')}>
+              <IconButton
+                size='small'
+                onClick={() => dispatch(deleteVersion({ id: row.id, documentId: data.document_id }))}
+              >
+                <Icon icon='mdi:delete-outline' fontSize={20} />
+              </IconButton>
+            </Tooltip>
+          )}
           <Tooltip title={t('document_page.list.delete_invoice')}>
             <IconButton size='small'>
               <Link href={row.url}>
@@ -343,78 +344,6 @@ const PreviewCard = ({ data }: Props) => {
             </Grid>
           </Grid>
         </CardContent>
-
-        <Divider />
-
-        {/* <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>{t('document_page.preview.item')}</TableCell>
-                <TableCell>{t('document_page.preview.note')}</TableCell>
-                <TableCell>{t('document_page.preview.type')}</TableCell>
-                <TableCell>{t('document_page.preview.price')}</TableCell>
-                <TableCell>{t('document_page.preview.quantity')}</TableCell>
-                <TableCell>{t('document_page.preview.total')}</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.items?.map(item => (
-                <TableRow key={item.id}>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.note}</TableCell>
-                  <TableCell>{item.type}</TableCell>
-                  <TableCell>{item.price}</TableCell>
-                  <TableCell>{item.quantity}</TableCell>
-                  <TableCell>{formatInvoiceCurrency(item.price * item.quantity, data.currency)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
-
-        {/* <CardContent>
-          <Grid container>
-            <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>
-              <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                <Typography variant='body2' sx={{ mr: 2, fontWeight: 600 }}>
-                  Salesperson:
-                </Typography>
-                <Typography variant='body2'>Tommy Shelby</Typography>
-              </Box>
-
-              <Typography variant='body2'>Thanks for your business</Typography>
-            </Grid>
-            <Grid item xs={12} sm={5} lg={3} sx={{ mb: { sm: 0, xs: 4 }, order: { sm: 2, xs: 1 } }}>
-              <CalcWrapper>
-                <Typography variant='body2'>Subtotal:</Typography>
-                <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  $1800
-                </Typography>
-              </CalcWrapper>
-              <CalcWrapper>
-                <Typography variant='body2'>Discount:</Typography>
-                <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  $28
-                </Typography>
-              </CalcWrapper>
-              <CalcWrapper>
-                <Typography variant='body2'>Tax:</Typography>
-                <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  21%
-                </Typography>
-              </CalcWrapper>
-              <Divider />
-              <CalcWrapper>
-                <Typography variant='body2'>Total:</Typography>
-                <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  $1690
-                </Typography>
-              </CalcWrapper>
-            </Grid>
-          </Grid>
-        </CardContent> */}
-        <Divider />
 
         <CardContent>
           <Typography variant='body2'>

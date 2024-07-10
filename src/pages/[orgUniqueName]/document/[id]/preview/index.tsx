@@ -16,5 +16,9 @@ InvoicePreview.acl = {
   action: 'read',
   subject: 'document'
 }
+InvoicePreview.acl = {
+  action: 'read',
+  subject: 'dashboard'
+}
 
 export default InvoicePreview

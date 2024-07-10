@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
     "start": "next start",
     "export": "next export",
     "lint": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -12,7 +11,8 @@
     "build:icons": "tsc -b src/iconify-bundle && node src/iconify-bundle/bundle-icons-react.js",
     "new-release": "./scripts/create-release-branch.sh",
     "api-gen": "node scripts/swagger-gen.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "next build && tsc --project tsconfig.server.json"
   },
   "dependencies": {
     "@casl/ability": "6.5.0",

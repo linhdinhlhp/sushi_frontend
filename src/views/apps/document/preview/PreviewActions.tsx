@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'src/store'
 import { useSession } from 'next-auth/react'
 import { SubscriptionsResponseDto } from 'src/__generated__/AccountifyAPI'
+import { AbilityContext } from 'src/layouts/components/acl/Can'
 
 // ** Utils Imports
 //import { getInvoiceEditUrl, getInvoicePrintUrl } from 'src/utils/router/invoice'
@@ -50,6 +51,7 @@ const PreviewActions = ({
 }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const session = useSession()
+  const ability = useContext(AbilityContext)
 
   // console.log('linh dang tét ', session.data.user)
 
@@ -64,11 +66,13 @@ const PreviewActions = ({
   return (
     <Card>
       <CardContent>
-        <Button fullWidth sx={{ mb: 3.5 }} variant='contained' startIcon={<Icon icon='mdi:plus-circle' />}>
-          <Link style={{ textDecoration: 'none', color: 'white' }} href={getDocumentAddVersionUrl(documentId)}>
-            Add document version
-          </Link>
-        </Button>
+        {ability?.can('update', 'invoice') && (
+          <Button fullWidth sx={{ mb: 3.5 }} variant='contained' startIcon={<Icon icon='mdi:plus-circle' />}>
+            <Link style={{ textDecoration: 'none', color: 'white' }} href={getDocumentAddVersionUrl(documentId)}>
+              Add document version
+            </Link>
+          </Button>
+        )}
         <FormGroup>
           <FormControlLabel
             control={<Checkbox onChange={() => setCheckedSMS(!checkedSMS)} checked={checkedSMS} />}

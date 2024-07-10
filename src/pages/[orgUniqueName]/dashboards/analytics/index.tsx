@@ -1,11 +1,3 @@
-// ** MUI Imports
-import Grid from '@mui/material/Grid'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-
 // ** React Imports
 import { useState, useEffect, forwardRef, useContext } from 'react'
 
@@ -14,6 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
@@ -25,6 +18,7 @@ import CardContent from '@mui/material/CardContent'
 import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid'
 
 // ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Third Party Imports
 import format from 'date-fns/format'
@@ -49,19 +43,20 @@ import { getDocumentEditUrl, getDocumentPreviewUrl } from 'src/utils/router/docu
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
-import TableHeader from 'src/views/apps/document/list/TableHeader'
+import TableHeader from 'src/views/dashboards/analytics/list/TableHeader'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-import { DocumentResponseDto, OrganizationUserResponseDto } from 'src/__generated__/AccountifyAPI'
+import {
+  DocumentResponseDto,
+  DocumentResponseListDto,
+  OrganizationUserResponseDto
+} from 'src/__generated__/AccountifyAPI'
 
 // ** Context Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
 import { fetchDocuments } from 'src/store/apps/document'
 
-const EcommerceDashboard = () => {
-  return <h1>Dashboard</h1>
-}
 interface CustomInputProps {
   dates: Date[]
   label: string
@@ -122,7 +117,7 @@ const InvoiceList = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.document)
+  const store = useSelector((state: RootState) => state.document.data) as DocumentResponseDto[]
   const ability = useContext(AbilityContext)
   const { t } = useTranslation()
 
@@ -200,15 +195,6 @@ const InvoiceList = () => {
       headerName: t('document_page.list.actions') as string,
       renderCell: ({ row }: CellType) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('document_page.list.delete_invoice')}>
-            <IconButton
-              size='small'
-              onClick={() => dispatch(deleteDocument(row.id))}
-              disabled={!ability?.can('delete', 'invoice')}
-            >
-              <Icon icon='mdi:delete-outline' fontSize={20} />
-            </IconButton>
-          </Tooltip>
           <Tooltip title={t('document_page.list.view')}>
             <IconButton size='small' component={Link} href={getDocumentPreviewUrl(row.id)}>
               <Icon icon='mdi:eye-outline' fontSize={20} />
@@ -246,7 +232,8 @@ const InvoiceList = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <CardHeader title={t('create document')} />
+            {/* <CardHeader title={t('create document')} /> */}
+            <CardHeader title='Filter by date' />
             <CardContent>
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={6}>
@@ -281,7 +268,7 @@ const InvoiceList = () => {
             <DataGrid
               autoHeight
               pagination
-              rows={store.data}
+              rows={store}
               columns={columns}
               checkboxSelection
               disableRowSelectionOnClick
@@ -296,9 +283,10 @@ const InvoiceList = () => {
     </DatePickerWrapper>
   )
 }
-EcommerceDashboard.acl = {
+
+InvoiceList.acl = {
   action: 'read',
   subject: 'dashboard'
 }
 
-export default EcommerceDashboard
+export default InvoiceList

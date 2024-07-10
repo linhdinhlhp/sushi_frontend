@@ -35,7 +35,8 @@ import { format } from 'date-fns'
 //import { addDocument } from 'src/store/apps/document'
 import { addVersion } from 'src/store/apps/version'
 import { updateDocument } from 'src/store/apps/document'
-import { fileURLToPath } from 'url'
+
+// import { fileURLToPath } from 'url'
 import { getOrgUniqueName } from 'src/utils/organization'
 
 //export type CreateInvoiceFormData = CreateInvoiceItemRequest & { index: number }
@@ -96,7 +97,7 @@ const InvoiceAdd = () => {
       if (!uploadResponse) {
         toast.error('Upload file failed')
       } else {
-        // Create invoice api call
+        // Create version api call
         const createVersionRequest: CreateVersionRequestDto & { documentId: string } = {
           createdAt: format(date as Date, 'yyyy-MM-dd'),
           created_by: '1',

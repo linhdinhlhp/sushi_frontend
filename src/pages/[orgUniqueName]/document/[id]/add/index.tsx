@@ -71,7 +71,7 @@ const InvoiceAdd = () => {
 
   const addItem = async () => {
     try {
-      const response = await fetch('process.env.NEXT_PUBLIC_API_ENDPOINT/upload/single-file-from-local', {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + '/upload/single-file-from-local', {
         method: 'POST',
         body: file
       })

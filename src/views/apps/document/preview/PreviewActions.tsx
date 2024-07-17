@@ -76,7 +76,7 @@ const PreviewActions = ({
         <FormGroup>
           <FormControlLabel
             control={<Checkbox onChange={() => setCheckedSMS(!checkedSMS)} checked={checkedSMS} />}
-            label='Nhận thông báo quan SMS'
+            label='Nhận thông báo qua SMS'
           />
           <FormControlLabel
             control={<Checkbox onChange={() => setCheckedMail(!checkedMail)} checked={checkedMail} />}

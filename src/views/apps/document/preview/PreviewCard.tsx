@@ -27,13 +27,13 @@ import OptionsMenu from 'src/@core/components/option-menu'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from 'src/store'
-import { deleteVersion, fetchVersions } from 'src/store/apps/version'
+import { deleteVersion, fetchVersions, updateVersion } from 'src/store/apps/version'
 
 // ** Configs
 //import themeConfig from 'src/configs/themeConfig'
 
 // ** Types
-import { DocumentResponseDto } from 'src/__generated__/AccountifyAPI'
+import { DocumentResponseDto, UpdateVerionRequestDto } from 'src/__generated__/AccountifyAPI'
 import { VersionResponseDto } from 'src/__generated__/AccountifyAPI'
 
 // ** Third Parties Imports
@@ -92,6 +92,17 @@ const PreviewCard = ({ data }: Props) => {
   useEffect(() => {
     dispatch(fetchVersions(data.document_id))
   }, [dispatch, data.document_id])
+
+  const updateDownNumber = (id: number, downloadNumber: number) => {
+    // Update invoice api call
+    console.log(id, downloadNumber)
+    const updateVersionRequest: UpdateVerionRequestDto = {
+      downloadNumber: downloadNumber + 1
+    }
+
+    // Call api
+    dispatch(updateVersion({ ...updateVersionRequest, id: id, documentId: data.document_id }))
+  }
 
   const defaultColumns: GridColDef[] = [
     {
@@ -167,8 +178,8 @@ const PreviewCard = ({ data }: Props) => {
               </IconButton>
             </Tooltip>
           )}
-          <Tooltip title={t('document_page.list.delete_invoice')}>
-            <IconButton size='small'>
+          <Tooltip title={t('document_page.list.download_invoice')}>
+            <IconButton size='small' onClick={() => updateDownNumber(row.id, row.downloadNumber)}>
               <Link href={row.url}>
                 <Icon icon='mdi:download' fontSize={20} />
               </Link>
